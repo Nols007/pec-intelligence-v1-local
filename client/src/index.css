@@ -1,0 +1,60 @@
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  padding: 18px;
+  max-width: 980px;
+  margin: 0 auto;
+
+  /* IMPORTANT: extra room for bottom nav + iPhone Safari bar */
+  padding-bottom: calc(140px + env(safe-area-inset-bottom));
+}
+
+h1 {
+  font-size: clamp(44px, 7vw, 70px);
+  font-weight: 950;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: rgba(255,255,255,0.96);
+}
+
+.muted {
+  color: rgba(255,255,255,0.65);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+/* Safety: prevent accidental overlap on small screens */
+.homeGrid {
+  width: 100%;
+}
+
+/* iPhone / small screens: keep everything single column automatically */
+@media (max-width: 540px) {
+  .page {
+    padding: 16px;
+    padding-bottom: calc(150px + env(safe-area-inset-bottom));
+  }
+  .muted {
+    font-size: 16px;
+  }
+}
