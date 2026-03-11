@@ -20,7 +20,7 @@ export default function SplashScreen({ onFinish }: SplashProps) {
         {/* PEC Logo */}
         <div className="flex justify-center">
           <img
-            src="/pec-logo.png"
+            src="/src/assets/pec-logo.png"
             alt="PEC Logo"
             className="w-28 opacity-90"
           />

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import pecLogo from "../assets/pec-logo.png";
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -27,24 +28,15 @@ export default function Intro() {
         padding: "24px",
       }}
     >
-      {/* Placeholder logo circle for now */}
-      <div
+      <img
+        src={pecLogo}
+        alt="PEC Utility Management"
         style={{
-          width: "96px",
-          height: "96px",
-          borderRadius: "24px",
-          background: "linear-gradient(135deg, #7c3aed, #2563eb)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "34px",
-          fontWeight: 700,
-          boxShadow: "0 0 40px rgba(59,130,246,0.35)",
-          marginBottom: "28px",
+          width: "220px",
+          marginBottom: "24px",
+          filter: "drop-shadow(0 0 24px rgba(255,255,255,0.18))",
         }}
-      >
-        P
-      </div>
+      />
 
       <h1
         style={{
@@ -59,7 +51,7 @@ export default function Intro() {
 
       <p
         style={{
-          opacity: 0.78,
+          opacity: 0.8,
           marginTop: "10px",
           marginBottom: "28px",
           fontSize: "15px",
