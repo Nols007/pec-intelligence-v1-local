@@ -2,7 +2,28 @@ import { useState } from "react";
 import SectionBlock from "@/components/style-guide/SectionBlock";
 import CompareRow from "@/components/style-guide/CompareRow";
 import TokenSwatch from "@/components/style-guide/TokenSwatch";
-import { CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem,
+  BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import {
+  Pagination, PaginationContent, PaginationItem,
+  PaginationPrevious, PaginationLink, PaginationNext,
+} from "@/components/ui/pagination";
+import {
+  Table, TableHeader, TableRow, TableHead,
+  TableBody, TableCell,
+} from "@/components/ui/table";
+import {
+  Accordion, AccordionItem, AccordionTrigger, AccordionContent,
+} from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import BottomNav from "@/layout/BottomNav";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -173,6 +194,84 @@ export default function StyleGuide() {
     fontWeight: 600,
     cursor: "pointer",
   };
+
+  // Local copies of nav/pill/card styles from app pages
+  const navButton: React.CSSProperties = {
+    background: "transparent",
+    color: "rgba(255,255,255,0.7)",
+    border: "none",
+    borderRadius: "12px",
+    padding: "12px 8px",
+    fontSize: "14px",
+    fontWeight: 700,
+    cursor: "pointer",
+  };
+
+  const navButtonActive: React.CSSProperties = {
+    ...navButton,
+    background: "rgba(255,255,255,0.08)",
+    color: "#ffffff",
+  };
+
+  const pillStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "10px 14px",
+    borderRadius: 999,
+    border: "1px solid rgba(255,255,255,0.14)",
+    background: "rgba(255,255,255,0.06)",
+    color: "white",
+    textDecoration: "none",
+    fontWeight: 900,
+  };
+
+  const cardStyle: React.CSSProperties = {
+    padding: "20px",
+    borderRadius: "16px",
+    background: "rgba(255,255,255,0.05)",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontSize: "14px",
+    opacity: 0.65,
+    marginBottom: "6px",
+  };
+
+  const valueStyle: React.CSSProperties = {
+    fontSize: "28px",
+    fontWeight: 800,
+  };
+
+  const alertCard = (severity: "high" | "medium" | "low"): React.CSSProperties => ({
+    padding: "16px",
+    borderRadius: "14px",
+    background:
+      severity === "high"
+        ? "rgba(127,29,29,0.22)"
+        : severity === "medium"
+        ? "rgba(120,53,15,0.22)"
+        : "rgba(21,128,61,0.16)",
+    border:
+      severity === "high"
+        ? "1px solid rgba(248,113,113,0.32)"
+        : severity === "medium"
+        ? "1px solid rgba(251,191,36,0.24)"
+        : "1px solid rgba(74,222,128,0.2)",
+  });
+
+  const alertDot = (severity: "high" | "medium" | "low"): React.CSSProperties => ({
+    width: "10px",
+    height: "10px",
+    borderRadius: "999px",
+    background:
+      severity === "high"
+        ? "#f87171"
+        : severity === "medium"
+        ? "#fbbf24"
+        : "#4ade80",
+    flexShrink: 0,
+  });
 
   return (
     <div
@@ -396,15 +495,258 @@ export default function StyleGuide() {
           </div>
         </SectionBlock>
 
-        {/* ── Placeholder Sections 3–4 ── */}
-        {[
-          { id: "buttons", title: "3. Buttons" },
-          { id: "cards",   title: "4. Cards" },
-        ].map(s => (
-          <SectionBlock key={s.id} id={s.id} title={s.title} isDark={isDark}>
-            <div style={{ padding: "20px", opacity: 0.4 }}>Coming soon…</div>
-          </SectionBlock>
-        ))}
+        {/* ── Section 3: Buttons ── */}
+        <SectionBlock
+          id="buttons"
+          title="3. Buttons"
+          description="Button variants from shadcn/ui compared to the app's custom inline-style buttons."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Default / Primary"
+            status="USED"
+            appNote="home.tsx — actionButton"
+            isDark={isDark}
+            shadcnSlot={<Button>Click me</Button>}
+            appSlot={<button style={actionButton}>Click me</button>}
+          />
+          <CompareRow
+            label="Destructive"
+            status="USED"
+            appNote="support.tsx — .btn.btnRed"
+            isDark={isDark}
+            shadcnSlot={<Button variant="destructive">Delete</Button>}
+            appSlot={<button className="btn btnRed">Submit ticket</button>}
+          />
+          <CompareRow
+            label="Outline"
+            status="USED"
+            appNote="bills.tsx — linkStyle"
+            isDark={isDark}
+            shadcnSlot={<Button variant="outline">View Bills</Button>}
+            appSlot={
+              <span style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "10px 14px",
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.14)",
+                background: "rgba(255,255,255,0.06)",
+                color: "white",
+                fontWeight: 900,
+              }}>View Bills</span>
+            }
+          />
+          <CompareRow
+            label="Ghost / Nav"
+            status="USED"
+            appNote="home.tsx — navButton"
+            isDark={isDark}
+            shadcnSlot={<Button variant="ghost">Usage</Button>}
+            appSlot={<button style={navButton}>Usage</button>}
+          />
+          <CompareRow
+            label="Ghost Active / Nav Active"
+            status="USED"
+            appNote="home.tsx — navButtonActive"
+            isDark={isDark}
+            shadcnSlot={<Button variant="ghost" className="bg-white/10">Home</Button>}
+            appSlot={<button style={navButtonActive}>Home</button>}
+          />
+          <CompareRow
+            label="Secondary"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Button variant="secondary">Secondary</Button>}
+          />
+          <CompareRow
+            label="Pill / Rounded"
+            status="USED"
+            appNote="dashboard.tsx — pillStyle"
+            isDark={isDark}
+            shadcnSlot={<Button className="rounded-full px-5">Usage</Button>}
+            appSlot={<span style={pillStyle}>Usage</span>}
+          />
+          <CompareRow
+            label="Size: sm"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Button size="sm">Small</Button>}
+          />
+          <CompareRow
+            label="Size: lg"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Button size="lg">Large</Button>}
+          />
+          <CompareRow
+            label="Size: icon"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Button size="icon"><span>★</span></Button>}
+          />
+          <CompareRow
+            label="Disabled"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Button disabled>Disabled</Button>}
+          />
+        </SectionBlock>
+
+        {/* ── Section 4: Cards ── */}
+        <SectionBlock
+          id="cards"
+          title="4. Cards"
+          description="Card and panel components from shadcn/ui compared to the app's inline-style cards and alert panels."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Standard Card"
+            status="USED"
+            appNote="home.tsx — cardStyle"
+            isDark={isDark}
+            shadcnSlot={
+              <Card>
+                <CardHeader>
+                  <CardTitle>Title</CardTitle>
+                  <CardDescription>Description</CardDescription>
+                </CardHeader>
+                <CardContent>Content goes here</CardContent>
+              </Card>
+            }
+            appSlot={
+              <div style={cardStyle}>
+                <div style={labelStyle}>Electricity</div>
+                <div style={valueStyle}>388 kWh</div>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Card with meta"
+            status="USED"
+            appNote="dashboard.tsx — Card fn"
+            isDark={isDark}
+            shadcnSlot={
+              <Card>
+                <CardHeader>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <CardTitle>Balance</CardTitle>
+                    <span style={{ opacity: 0.6 }}>demo</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div style={{ fontSize: 40, fontWeight: 950 }}>R 842.35</div>
+                </CardContent>
+              </Card>
+            }
+            appSlot={
+              <div style={{
+                padding: 18,
+                borderRadius: 22,
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.06)",
+                minWidth: 200,
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                  <div style={{ fontWeight: 900, fontSize: 20 }}>Electricity</div>
+                  <div style={{ opacity: 0.7, fontWeight: 700 }}>This month</div>
+                </div>
+                <div style={{ marginTop: 10, fontSize: 54, fontWeight: 950, letterSpacing: -1 }}>388 kWh</div>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Alert Card — High"
+            status="USED"
+            appNote="home.tsx — alertCard('high')"
+            isDark={isDark}
+            shadcnSlot={
+              <Alert variant="destructive">
+                <AlertTitle>Critical Alert</AlertTitle>
+                <AlertDescription>Possible abnormal evening consumption</AlertDescription>
+              </Alert>
+            }
+            appSlot={
+              <div style={alertCard("high")}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <div style={alertDot("high")} />
+                  <div style={{ fontWeight: 700 }}>High priority</div>
+                </div>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Alert Card — Medium"
+            status="USED"
+            appNote="home.tsx — alertCard('medium')"
+            isDark={isDark}
+            shadcnSlot={
+              <Alert className="border-amber-500/40 bg-amber-950/20 text-amber-200">
+                <AlertTitle>Warning</AlertTitle>
+                <AlertDescription>Usage approaching monthly limit</AlertDescription>
+              </Alert>
+            }
+            appSlot={
+              <div style={alertCard("medium")}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <div style={alertDot("medium")} />
+                  <div style={{ fontWeight: 700 }}>Medium priority</div>
+                </div>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Alert Card — Low"
+            status="USED"
+            appNote="home.tsx — alertCard('low')"
+            isDark={isDark}
+            shadcnSlot={
+              <Alert className="border-green-500/30 bg-green-950/20 text-green-200">
+                <AlertTitle>Info</AlertTitle>
+                <AlertDescription>Usage within normal range</AlertDescription>
+              </Alert>
+            }
+            appSlot={
+              <div style={alertCard("low")}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <div style={alertDot("low")} />
+                  <div style={{ fontWeight: 700 }}>Low priority</div>
+                </div>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Nested Row (MeterRow)"
+            status="USED"
+            appNote="meters.tsx — MeterRow"
+            isDark={isDark}
+            shadcnSlot={
+              <Card>
+                <CardContent className="p-0">
+                  <div style={{ padding: "16px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                    Meter ABC123
+                  </div>
+                </CardContent>
+              </Card>
+            }
+            appSlot={
+              <div style={{
+                padding: 14,
+                borderRadius: 16,
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(0,0,0,0.25)",
+                minWidth: 200,
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
+                  <div style={{ fontWeight: 950 }}>Electricity Meter</div>
+                  <div style={{ opacity: 0.7, fontWeight: 700 }}>Prepaid</div>
+                </div>
+                <div style={{ marginTop: 8, opacity: 0.85 }}>Last read: 12,430 kWh</div>
+              </div>
+            }
+          />
+        </SectionBlock>
 
         {/* ── Section 5: Inputs & Textarea ── */}
         <SectionBlock
