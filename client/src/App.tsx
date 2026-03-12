@@ -33,6 +33,7 @@ export default function App() {
       {/* Optional: if anything links to /payment in BottomNav */}
       <Route path="/payment" element={<Navigate to="/bills" replace />} />
 
+      {/* style-guide */}
       <Route path="/style-guide" element={<StyleGuide />} />
 
       {/* Catch-all */}
