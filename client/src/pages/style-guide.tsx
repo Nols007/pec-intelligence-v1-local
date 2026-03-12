@@ -3,6 +3,61 @@ import SectionBlock from "@/components/style-guide/SectionBlock";
 import CompareRow from "@/components/style-guide/CompareRow";
 import TokenSwatch from "@/components/style-guide/TokenSwatch";
 import { CardTitle, CardDescription } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+import PecViewToggle from "@/components/PecViewToggle";
 
 const TOC_SECTIONS = [
   { id: "typography",    label: "Typography" },
@@ -63,6 +118,10 @@ const INLINE_SWATCHES = [
 
 export default function StyleGuide() {
   const [isDark, setIsDark] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [alertDialogOpen, setAlertDialogOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const { toast } = useToast();
 
   const bg = isDark ? "#0d0d0d" : "#f5f5f5";
   const fg = isDark ? "#ffffff" : "#000000";
@@ -71,6 +130,49 @@ export default function StyleGuide() {
   const anchorColor = isDark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.6)";
   const anchorHoverColor = isDark ? "#fff" : "#000";
   const toggleBg = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+
+  // Local copies of selector styles from home.tsx
+  const selectorWrap: React.CSSProperties = {
+    position: "relative",
+    background: "rgba(255,255,255,0.05)",
+    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: "14px",
+    overflow: "hidden",
+  };
+
+  const selectorChevron: React.CSSProperties = {
+    position: "absolute",
+    right: "16px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    pointerEvents: "none",
+    opacity: 0.7,
+    fontSize: "12px",
+  };
+
+  const selectorStyle: React.CSSProperties = {
+    width: "100%",
+    background: "transparent",
+    color: "#fff",
+    border: "none",
+    outline: "none",
+    padding: "16px",
+    fontSize: "16px",
+    fontWeight: 700,
+    appearance: "none",
+    WebkitAppearance: "none",
+  };
+
+  const actionButton: React.CSSProperties = {
+    background: "rgba(255,255,255,0.06)",
+    color: "#fff",
+    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: "14px",
+    padding: "14px 16px",
+    fontSize: "15px",
+    fontWeight: 600,
+    cursor: "pointer",
+  };
 
   return (
     <div
@@ -294,15 +396,333 @@ export default function StyleGuide() {
           </div>
         </SectionBlock>
 
-        {/* ── Placeholder Sections 3–12 ── */}
+        {/* ── Placeholder Sections 3–4 ── */}
         {[
-          { id: "buttons",      title: "3. Buttons" },
-          { id: "cards",        title: "4. Cards" },
-          { id: "inputs",       title: "5. Inputs" },
-          { id: "selects",      title: "6. Selects" },
-          { id: "toggles",      title: "7. Toggles" },
-          { id: "alerts",       title: "8. Alerts" },
-          { id: "dialogs",      title: "9. Dialogs" },
+          { id: "buttons", title: "3. Buttons" },
+          { id: "cards",   title: "4. Cards" },
+        ].map(s => (
+          <SectionBlock key={s.id} id={s.id} title={s.title} isDark={isDark}>
+            <div style={{ padding: "20px", opacity: 0.4 }}>Coming soon…</div>
+          </SectionBlock>
+        ))}
+
+        {/* ── Section 5: Inputs & Textarea ── */}
+        <SectionBlock
+          id="inputs"
+          title="5. Inputs & Textarea"
+          description="Text input, textarea, and label components."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Text Input"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Input placeholder="Type here…" />}
+            appSlot={
+              <input
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "14px",
+                  padding: "16px",
+                  color: "#fff",
+                  fontSize: "16px",
+                  width: "100%",
+                }}
+                placeholder="Type here…"
+              />
+            }
+            note="No shadcn Input used in app"
+          />
+          <CompareRow
+            label="Textarea"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Textarea placeholder="Describe your issue…" />}
+            appSlot={
+              <textarea
+                className="textarea"
+                placeholder="Describe…"
+                style={{ width: "100%", minHeight: "80px" }}
+              />
+            }
+            appNote="support.tsx — className &quot;textarea&quot; (CSS class undefined)"
+          />
+          <CompareRow
+            label="Label"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <Label htmlFor="demo">Field label</Label>
+                <Input id="demo" placeholder="Value" />
+              </div>
+            }
+          />
+          <div style={{ padding: "12px 20px 20px" }}>
+            <div style={{ padding: "12px 16px", background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", borderRadius: "10px", fontSize: "13px", lineHeight: 1.6 }}>
+              ⚠️ <strong>Bug / Gap:</strong> <code>.textarea</code> and <code>.select</code> classNames used in{" "}
+              <code>support.tsx</code> have no CSS definition — these styles are missing from{" "}
+              <code>index.css</code>.
+            </div>
+          </div>
+        </SectionBlock>
+
+        {/* ── Section 6: Selects & Dropdowns ── */}
+        <SectionBlock
+          id="selects"
+          title="6. Selects & Dropdowns"
+          description="Native select, shadcn Select, and DropdownMenu components."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Select"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Select>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Choose…" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="a">Option A</SelectItem>
+                  <SelectItem value="b">Option B</SelectItem>
+                </SelectContent>
+              </Select>
+            }
+            appSlot={
+              <div style={selectorWrap}>
+                <div style={selectorChevron}>▼</div>
+                <select style={selectorStyle}>
+                  <option>Residential</option>
+                  <option>Portfolio</option>
+                </select>
+              </div>
+            }
+            appNote="home.tsx — selectorStyle"
+          />
+          <CompareRow
+            label="DropdownMenu"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">Open Menu ▾</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Log out</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+          />
+        </SectionBlock>
+
+        {/* ── Section 7: Toggles & Checkboxes ── */}
+        <SectionBlock
+          id="toggles"
+          title="7. Toggles & Checkboxes"
+          description="Switch, Checkbox, RadioGroup, Slider, and PecViewToggle components."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Switch"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Switch id="demo-switch" />
+                <Label htmlFor="demo-switch">Enable notifications</Label>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Checkbox"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Checkbox id="demo-cb" />
+                <Label htmlFor="demo-cb">Accept terms</Label>
+              </div>
+            }
+          />
+          <CompareRow
+            label="RadioGroup"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <RadioGroup defaultValue="a">
+                <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                  <RadioGroupItem value="a" id="r1" />
+                  <Label htmlFor="r1">Option A</Label>
+                  <RadioGroupItem value="b" id="r2" />
+                  <Label htmlFor="r2">Option B</Label>
+                </div>
+              </RadioGroup>
+            }
+          />
+          <CompareRow
+            label="Slider"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={<Slider defaultValue={[50]} max={100} step={1} className="w-48" />}
+          />
+          <CompareRow
+            label="PecViewToggle"
+            status="USED"
+            isDark={isDark}
+            appSlot={<PecViewToggle />}
+            appNote="PecViewToggle.tsx — custom toggle"
+            shadcnSlot={<span style={{ opacity: 0.4, fontSize: "13px" }}>no shadcn equivalent</span>}
+          />
+        </SectionBlock>
+
+        {/* ── Section 8: Alerts & Notifications ── */}
+        <SectionBlock
+          id="alerts"
+          title="8. Alerts & Notifications"
+          description="Alert variants, Badge, and Toast notification components."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Alert — Default"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Alert>
+                <AlertTitle>Heads up!</AlertTitle>
+                <AlertDescription>You can now add components.</AlertDescription>
+              </Alert>
+            }
+          />
+          <CompareRow
+            label="Alert — Destructive"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Alert variant="destructive">
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>Something went wrong.</AlertDescription>
+              </Alert>
+            }
+          />
+          <CompareRow
+            label="Badge"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                <Badge>Default</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="outline">Outline</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Toast (fire on click)"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Button onClick={() => toast({ title: "Toast fired", description: "This is a shadcn toast" })}>
+                Fire Toast
+              </Button>
+            }
+            note="use-toast.ts exists but Toaster never used in app"
+          />
+        </SectionBlock>
+
+        {/* ── Section 9: Dialogs & Overlays ── */}
+        <SectionBlock
+          id="dialogs"
+          title="9. Dialogs & Overlays"
+          description="Dialog, AlertDialog, Sheet overlays and native confirm() pattern."
+          isDark={isDark}
+        >
+          <CompareRow
+            label="Dialog"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button>Open Dialog</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Dialog Title</DialogTitle>
+                    <DialogDescription>This is a modal dialog.</DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <Button onClick={() => setDialogOpen(false)}>Close</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            }
+          />
+          <CompareRow
+            label="AlertDialog"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <AlertDialog open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive">Open Alert Dialog</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            }
+          />
+          <CompareRow
+            label="Sheet"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline">Open Sheet</Button>
+                </SheetTrigger>
+                <SheetContent side="bottom">
+                  <SheetHeader>
+                    <SheetTitle>Sheet Title</SheetTitle>
+                    <SheetDescription>This slides up from the bottom.</SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
+            }
+          />
+          <CompareRow
+            label="window.confirm()"
+            status="USED"
+            isDark={isDark}
+            appSlot={
+              <button
+                style={actionButton}
+                onClick={() => window.confirm("Are you sure?")}
+              >
+                Clear tickets (confirm)
+              </button>
+            }
+            appNote="support.tsx current pattern"
+            shadcnSlot={<span style={{ opacity: 0.4, fontSize: "13px" }}>no shadcn equivalent</span>}
+          />
+        </SectionBlock>
+
+        {/* ── Placeholder Sections 10–12 ── */}
+        {[
           { id: "navigation",   title: "10. Navigation" },
           { id: "data-display", title: "11. Data Display" },
           { id: "layout",       title: "12. Layout" },
@@ -311,6 +731,8 @@ export default function StyleGuide() {
             <div style={{ padding: "20px", opacity: 0.4 }}>Coming soon…</div>
           </SectionBlock>
         ))}
+
+        <Toaster />
       </div>
     </div>
   );
