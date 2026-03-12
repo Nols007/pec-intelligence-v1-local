@@ -1063,16 +1063,306 @@ export default function StyleGuide() {
           />
         </SectionBlock>
 
-        {/* ── Placeholder Sections 10–12 ── */}
-        {[
-          { id: "navigation",   title: "10. Navigation" },
-          { id: "data-display", title: "11. Data Display" },
-          { id: "layout",       title: "12. Layout" },
-        ].map(s => (
-          <SectionBlock key={s.id} id={s.id} title={s.title} isDark={isDark}>
-            <div style={{ padding: "20px", opacity: 0.4 }}>Coming soon…</div>
-          </SectionBlock>
-        ))}
+        {/* ── Section 10: Navigation Patterns ── */}
+        <SectionBlock id="navigation" title="10. Navigation Patterns" isDark={isDark}>
+          <CompareRow
+            label="Tabs"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Tabs defaultValue="tab1" className="w-full">
+                <TabsList>
+                  <TabsTrigger value="tab1">Overview</TabsTrigger>
+                  <TabsTrigger value="tab2">Usage</TabsTrigger>
+                  <TabsTrigger value="tab3">Bills</TabsTrigger>
+                </TabsList>
+                <TabsContent value="tab1"><div style={{ padding: "12px", opacity: 0.7 }}>Overview content</div></TabsContent>
+                <TabsContent value="tab2"><div style={{ padding: "12px", opacity: 0.7 }}>Usage content</div></TabsContent>
+                <TabsContent value="tab3"><div style={{ padding: "12px", opacity: 0.7 }}>Bills content</div></TabsContent>
+              </Tabs>
+            }
+          />
+          <CompareRow
+            label="BottomNav (component)"
+            status="USED"
+            appNote="layout/BottomNav.tsx — USED"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent</span>}
+            appSlot={
+              <div style={{ position: "relative", height: "90px", overflow: "hidden", width: "100%" }}>
+                <BottomNav />
+              </div>
+            }
+          />
+          <CompareRow
+            label="Bottom Nav inline (DUPLICATE)"
+            status="DUPLICATE"
+            appNote="home.tsx inline nav — DUPLICATE of BottomNav"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent</span>}
+            appSlot={
+              <div style={{ width: "100%", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "10px", padding: "10px", borderRadius: "18px", background: "rgba(18,18,20,0.92)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <button style={{ background: "rgba(255,255,255,0.08)", color: "#fff", border: "none", borderRadius: "12px", padding: "12px 8px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>Home</button>
+                <button style={{ background: "transparent", color: "rgba(255,255,255,0.7)", border: "none", borderRadius: "12px", padding: "12px 8px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>Usage</button>
+                <button style={{ background: "transparent", color: "rgba(255,255,255,0.7)", border: "none", borderRadius: "12px", padding: "12px 8px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>Bills</button>
+                <button style={{ background: "transparent", color: "rgba(255,255,255,0.7)", border: "none", borderRadius: "12px", padding: "12px 8px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>Support</button>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Bottom Nav inline (DUPLICATE 2)"
+            status="DUPLICATE"
+            appNote="usage.tsx inline nav — DUPLICATE of BottomNav"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent</span>}
+            note="Same 4-button inline grid as home.tsx — see DUPLICATE above for visual. Consolidate both to BottomNav.tsx."
+          />
+          <CompareRow
+            label="Breadcrumb"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem><BreadcrumbLink href="#">Usage</BreadcrumbLink></BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem><BreadcrumbPage>Monthly</BreadcrumbPage></BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            }
+          />
+          <CompareRow
+            label="Pagination"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem><PaginationPrevious href="#" /></PaginationItem>
+                  <PaginationItem><PaginationLink href="#">1</PaginationLink></PaginationItem>
+                  <PaginationItem><PaginationNext href="#" /></PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            }
+          />
+        </SectionBlock>
+
+        {/* ── Section 11: Data Display ── */}
+        <SectionBlock id="data-display" title="11. Data Display" isDark={isDark}>
+          <CompareRow
+            label="Table"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Site</TableHead>
+                    <TableHead>kWh</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Menlyn</TableCell>
+                    <TableCell>182 kWh</TableCell>
+                    <TableCell>Normal</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Waterfall</TableCell>
+                    <TableCell>96 kWh</TableCell>
+                    <TableCell>Alert</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            }
+          />
+          <CompareRow
+            label="Accordion"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="i1">
+                  <AccordionTrigger>Electricity Details</AccordionTrigger>
+                  <AccordionContent>Monthly breakdown and trend analysis goes here.</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="i2">
+                  <AccordionTrigger>Water Details</AccordionTrigger>
+                  <AccordionContent>Usage patterns and anomaly flags.</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            }
+          />
+          <CompareRow
+            label="Separator"
+            status="UNUSED"
+            appNote="support.tsx — .divider className (CSS undefined)"
+            isDark={isDark}
+            shadcnSlot={
+              <div>
+                <div style={{ padding: "8px 0" }}>Above the line</div>
+                <Separator />
+                <div style={{ padding: "8px 0" }}>Below the line</div>
+              </div>
+            }
+            appSlot={<div className="divider" />}
+          />
+          <CompareRow
+            label="Progress"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+                <Progress value={33} />
+                <Progress value={66} />
+                <Progress value={100} />
+              </div>
+            }
+          />
+          <CompareRow
+            label="Skeleton"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+              </div>
+            }
+          />
+          <CompareRow
+            label="Avatar"
+            status="UNUSED"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ display: "flex", gap: "8px" }}>
+                <Avatar><AvatarFallback>JD</AvatarFallback></Avatar>
+                <Avatar><AvatarFallback>PEC</AvatarFallback></Avatar>
+              </div>
+            }
+          />
+          <CompareRow
+            label="Bar Chart (div-based)"
+            status="USED"
+            appNote="usage.tsx — inline div bar chart"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent — custom div bars</span>}
+            appSlot={
+              <div style={{ display: "flex", alignItems: "flex-end", gap: "8px", height: "80px", width: "100%" }}>
+                <div style={{ height: "60%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "75%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "68%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "82%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "90%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "78%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+                <div style={{ height: "85%", background: "#22c55e", width: "12%", borderRadius: "3px 3px 0 0" }} />
+              </div>
+            }
+          />
+        </SectionBlock>
+
+        {/* ── Section 12: Layout & Spacing ── */}
+        <SectionBlock id="layout" title="12. Layout & Spacing" isDark={isDark}>
+          <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "32px" }}>
+            {/* Border radius tokens */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "16px" }}>Border Radius Tokens</div>
+              <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                {[
+                  { label: "sm (3px)", radius: "3px" },
+                  { label: "md (6px)", radius: "6px" },
+                  { label: "lg (9px)", radius: "9px" },
+                  { label: "app inline (14–22px)", radius: "18px" },
+                ].map(({ label, radius }) => (
+                  <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+                    <div style={{ width: "64px", height: "64px", background: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)", borderRadius: radius, border: isDark ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(0,0,0,0.15)" }} />
+                    <span style={{ fontSize: "11px", opacity: 0.6, textAlign: "center" }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Surface opacity scale */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "16px" }}>Surface Opacity Scale</div>
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                {[
+                  { label: "0.03", bg: "rgba(255,255,255,0.03)" },
+                  { label: "0.05", bg: "rgba(255,255,255,0.05)" },
+                  { label: "0.06", bg: "rgba(255,255,255,0.06)" },
+                  { label: "0.08", bg: "rgba(255,255,255,0.08)" },
+                  { label: "0.12", bg: "rgba(255,255,255,0.12)" },
+                  { label: "0.14", bg: "rgba(255,255,255,0.14)" },
+                ].map(({ label, bg }) => (
+                  <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+                    <div style={{ width: "80px", height: "48px", background: bg, borderRadius: "8px", border: "1px solid rgba(255,255,255,0.12)" }} />
+                    <span style={{ fontSize: "11px", opacity: 0.6 }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Grid patterns */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "16px" }}>Grid Patterns</div>
+              <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-start" }}>
+                <div>
+                  <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>2-col action grid (home.tsx)</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", width: "240px" }}>
+                    {["View Usage", "View Bills", "Meters", "Support"].map(t => (
+                      <button key={t} style={{ background: "rgba(255,255,255,0.06)", color: "#fff", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "14px 16px", fontSize: "15px", fontWeight: 600, cursor: "pointer" }}>{t}</button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>1-col card grid</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "12px", width: "200px" }}>
+                    {["Card A", "Card B", "Card C"].map(t => (
+                      <div key={t} style={{ background: "rgba(255,255,255,0.05)", borderRadius: "16px", padding: "16px 20px", border: "1px solid rgba(255,255,255,0.08)", fontSize: "14px", fontWeight: 600 }}>{t}</div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Page container */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "12px" }}>Page Container</div>
+              <div style={{ padding: "14px 18px", borderRadius: "10px", background: isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)", border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.08)" }}>
+                <span style={{ fontSize: "13px", opacity: 0.8 }}>
+                  <code style={{ fontFamily: "monospace" }}>.page</code> applies <code style={{ fontFamily: "monospace" }}>max-width: 980px; padding: 18px</code>.{" "}
+                  <code style={{ fontFamily: "monospace" }}>PageContainer.tsx</code> exists in <code style={{ fontFamily: "monospace" }}>layout/</code> but is <strong>UNUSED</strong> — no page imports it.
+                </span>
+              </div>
+            </div>
+          </div>
+        </SectionBlock>
+
+        {/* ── Rationalisation Targets Callout ── */}
+        <div style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)", borderRadius: "12px", padding: "24px", marginBottom: "48px" }}>
+          <div style={{ fontSize: "16px", fontWeight: 800, color: "#fbbf24", marginBottom: "16px" }}>⚠ Rationalisation Targets</div>
+          <ol style={{ margin: 0, paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
+            <li style={{ fontSize: "14px", lineHeight: 1.6 }}>
+              <strong>Bottom Nav</strong> — 3 implementations: <code style={{ fontFamily: "monospace", fontSize: "12px" }}>BottomNav.tsx</code> (canonical), <code style={{ fontFamily: "monospace", fontSize: "12px" }}>home.tsx</code> (duplicate), <code style={{ fontFamily: "monospace", fontSize: "12px" }}>usage.tsx</code> (duplicate) → consolidate to <code style={{ fontFamily: "monospace", fontSize: "12px" }}>BottomNav.tsx</code>
+            </li>
+            <li style={{ fontSize: "14px", lineHeight: 1.6 }}>
+              <strong>Card container</strong> — 4+ implementations → consolidate to shadcn <code style={{ fontFamily: "monospace", fontSize: "12px" }}>&lt;Card&gt;</code>
+            </li>
+            <li style={{ fontSize: "14px", lineHeight: 1.6 }}>
+              <strong>Link/pill button</strong> — 3 variants (<code style={{ fontFamily: "monospace", fontSize: "12px" }}>linkStyle</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>actionButton</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>pillStyle</code>) → one shadcn <code style={{ fontFamily: "monospace", fontSize: "12px" }}>Button</code> variant
+            </li>
+            <li style={{ fontSize: "14px", lineHeight: 1.6 }}>
+              <strong>Undefined CSS classes</strong> — <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.textarea</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.select</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.card</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.btn</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.btnRed</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.divider</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.errorBox</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.h1</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.sub</code>, <code style={{ fontFamily: "monospace", fontSize: "12px" }}>.cardPad</code> used in support.tsx but not defined in any CSS file
+            </li>
+            <li style={{ fontSize: "14px", lineHeight: 1.6 }}>
+              <strong>PageContainer.tsx</strong> — exists in <code style={{ fontFamily: "monospace", fontSize: "12px" }}>layout/</code> but never imported or used by any page
+            </li>
+          </ol>
+        </div>
 
         <Toaster />
       </div>
