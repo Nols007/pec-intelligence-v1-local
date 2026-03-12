@@ -96,33 +96,33 @@ const TOC_SECTIONS = [
 ];
 
 const TOKEN_SWATCHES = [
-  { name: "background",       value: "hsl(var(--background))",       displayColor: "var(--background)" },
-  { name: "foreground",       value: "hsl(var(--foreground))",       displayColor: "var(--foreground)" },
-  { name: "card",             value: "hsl(var(--card))",             displayColor: "var(--card)" },
-  { name: "card-foreground",  value: "hsl(var(--card-foreground))",  displayColor: "var(--card-foreground)" },
-  { name: "popover",          value: "hsl(var(--popover))",          displayColor: "var(--popover)" },
-  { name: "popover-fg",       value: "hsl(var(--popover-foreground))", displayColor: "var(--popover-foreground)" },
-  { name: "primary",          value: "hsl(var(--primary))",          displayColor: "var(--primary)" },
-  { name: "primary-fg",       value: "hsl(var(--primary-foreground))", displayColor: "var(--primary-foreground)" },
-  { name: "secondary",        value: "hsl(var(--secondary))",        displayColor: "var(--secondary)" },
-  { name: "secondary-fg",     value: "hsl(var(--secondary-foreground))", displayColor: "var(--secondary-foreground)" },
-  { name: "muted",            value: "hsl(var(--muted))",            displayColor: "var(--muted)" },
-  { name: "muted-fg",         value: "hsl(var(--muted-foreground))", displayColor: "var(--muted-foreground)" },
-  { name: "accent",           value: "hsl(var(--accent))",           displayColor: "var(--accent)" },
-  { name: "accent-fg",        value: "hsl(var(--accent-foreground))", displayColor: "var(--accent-foreground)" },
-  { name: "destructive",      value: "hsl(var(--destructive))",      displayColor: "var(--destructive)" },
-  { name: "destructive-fg",   value: "hsl(var(--destructive-foreground))", displayColor: "var(--destructive-foreground)" },
-  { name: "ring",             value: "hsl(var(--ring))",             displayColor: "var(--ring)" },
-  { name: "chart-1",          value: "hsl(var(--chart-1))",          displayColor: "var(--chart-1)" },
-  { name: "chart-2",          value: "hsl(var(--chart-2))",          displayColor: "var(--chart-2)" },
-  { name: "chart-3",          value: "hsl(var(--chart-3))",          displayColor: "var(--chart-3)" },
-  { name: "chart-4",          value: "hsl(var(--chart-4))",          displayColor: "var(--chart-4)" },
-  { name: "chart-5",          value: "hsl(var(--chart-5))",          displayColor: "var(--chart-5)" },
-  { name: "sidebar",          value: "hsl(var(--sidebar))",          displayColor: "var(--sidebar)" },
-  { name: "status-online",    value: "hsl(var(--status-online))",    displayColor: "var(--status-online)" },
-  { name: "status-away",      value: "hsl(var(--status-away))",      displayColor: "var(--status-away)" },
-  { name: "status-busy",      value: "hsl(var(--status-busy))",      displayColor: "var(--status-busy)" },
-  { name: "status-offline",   value: "hsl(var(--status-offline))",   displayColor: "var(--status-offline)" },
+  { name: "background",       value: "var(--background)",         displayColor: "#09090b",  note: "zinc-950" },
+  { name: "foreground",       value: "var(--foreground)",         displayColor: "#fafafa",  note: "zinc-50" },
+  { name: "card",             value: "var(--card)",               displayColor: "#09090b",  note: "zinc-950" },
+  { name: "card-foreground",  value: "var(--card-foreground)",    displayColor: "#fafafa",  note: "zinc-50" },
+  { name: "popover",          value: "var(--popover)",            displayColor: "#09090b",  note: "zinc-950" },
+  { name: "popover-fg",       value: "var(--popover-foreground)", displayColor: "#fafafa",  note: "zinc-50" },
+  { name: "primary",          value: "var(--primary)",            displayColor: "#fafafa",  note: "zinc-50" },
+  { name: "primary-fg",       value: "var(--primary-foreground)", displayColor: "#18181b",  note: "zinc-900" },
+  { name: "secondary",        value: "var(--secondary)",          displayColor: "#27272a",  note: "zinc-800" },
+  { name: "secondary-fg",     value: "var(--secondary-foreground)", displayColor: "#fafafa", note: "zinc-50" },
+  { name: "muted",            value: "var(--muted)",              displayColor: "#27272a",  note: "zinc-800" },
+  { name: "muted-fg",         value: "var(--muted-foreground)",   displayColor: "#a1a1aa",  note: "zinc-400" },
+  { name: "accent",           value: "var(--accent)",             displayColor: "#27272a",  note: "zinc-800" },
+  { name: "accent-fg",        value: "var(--accent-foreground)",  displayColor: "#fafafa",  note: "zinc-50" },
+  { name: "destructive",      value: "var(--destructive)",        displayColor: "#ef4444",  note: "red-500" },
+  { name: "destructive-fg",   value: "var(--destructive-foreground)", displayColor: "#fafafa", note: "zinc-50" },
+  { name: "ring",             value: "var(--ring)",               displayColor: "#d4d4d8",  note: "zinc-300" },
+  { name: "border",           value: "var(--border)",             displayColor: "#27272a",  note: "zinc-800" },
+  { name: "chart-1",          value: "var(--chart-1)",            displayColor: "#e85d04",  note: "orange" },
+  { name: "chart-2",          value: "var(--chart-2)",            displayColor: "#f48c06",  note: "amber" },
+  { name: "chart-3",          value: "var(--chart-3)",            displayColor: "#f9c74f",  note: "yellow" },
+  { name: "chart-4",          value: "var(--chart-4)",            displayColor: "#90be6d",  note: "sage" },
+  { name: "chart-5",          value: "var(--chart-5)",            displayColor: "#43aa8b",  note: "teal" },
+  { name: "status-online",    value: "var(--status-online)",      displayColor: "#22c55e",  note: "green-500" },
+  { name: "status-away",      value: "var(--status-away)",        displayColor: "#f59e0b",  note: "amber-500" },
+  { name: "status-busy",      value: "var(--status-busy)",        displayColor: "#ef4444",  note: "red-500" },
+  { name: "status-offline",   value: "var(--status-offline)",     displayColor: "#9ca3af",  note: "gray-400" },
 ];
 
 const INLINE_SWATCHES = [
@@ -363,6 +363,29 @@ export default function StyleGuide() {
           isDark={isDark}
         >
           <CompareRow
+            label="Font Stack — System UI (body)"
+            status="USED"
+            appNote="index.css — ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial"
+            isDark={isDark}
+            shadcnSlot={
+              <div style={{ fontSize: "13px", lineHeight: 1.6, opacity: 0.7 }}>
+                <div style={{ fontWeight: 700, marginBottom: "4px" }}>shadcn font vars (UNUSED):</div>
+                <code style={{ fontFamily: "monospace", fontSize: "11px" }}>var(--font-sans) · var(--font-serif) · var(--font-mono)</code>
+                <div style={{ marginTop: "4px", color: "#fbbf24", fontSize: "11px" }}>⚠ CSS vars not defined — system UI fallback used</div>
+              </div>
+            }
+            appSlot={
+              <div style={{ fontSize: "13px", lineHeight: 1.6 }}>
+                <div style={{ fontWeight: 700, marginBottom: "4px" }}>Active font stack:</div>
+                <div style={{ fontFamily: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial" }}>
+                  ui-sans-serif · system-ui · -apple-system · Segoe UI · Roboto · Helvetica · Arial
+                </div>
+                <div style={{ marginTop: "6px", fontSize: "12px", opacity: 0.55 }}>Resolved to system default sans-serif — no custom font loaded</div>
+              </div>
+            }
+            note="No custom typeface loaded. var(--font-sans/serif/mono) referenced in tailwind.config.ts but CSS vars never defined."
+          />
+          <CompareRow
             label="Display — 70px / 950"
             status="USED"
             appNote="home.tsx — hero headline"
@@ -476,9 +499,14 @@ export default function StyleGuide() {
           />
 
           {/* Token swatches sub-section */}
+          <div style={{ padding: "0 20px 8px" }}>
+            <div style={{ padding: "12px 16px", background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.25)", borderRadius: "10px", fontSize: "13px", lineHeight: 1.6 }}>
+              <strong style={{ color: "#fbbf24" }}>⚠ Audit finding:</strong> The token system is configured in <code style={{ fontFamily: "monospace", fontSize: "11px" }}>tailwind.config.ts</code> but the CSS custom properties (<code style={{ fontFamily: "monospace", fontSize: "11px" }}>--background</code>, <code style={{ fontFamily: "monospace", fontSize: "11px" }}>--primary</code>, etc.) are <strong>not defined in any CSS file</strong>. Shadcn components and Tailwind token classes will not render with correct colours until a CSS variable definition block is added to <code style={{ fontFamily: "monospace", fontSize: "11px" }}>index.css</code>. Swatches below show the <em>intended</em> values (shadcn zinc dark defaults).
+            </div>
+          </div>
           <div style={{ padding: "20px" }}>
             <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "16px" }}>
-              CSS Variable Tokens
+              Token Colours — Intended Values (shadcn zinc dark defaults)
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
               {TOKEN_SWATCHES.map(s => (
@@ -489,6 +517,7 @@ export default function StyleGuide() {
                   displayColor={s.displayColor}
                   isDark={isDark}
                   source="token"
+                  note={s.note}
                 />
               ))}
             </div>

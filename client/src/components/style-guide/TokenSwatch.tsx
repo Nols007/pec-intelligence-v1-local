@@ -7,9 +7,11 @@ interface TokenSwatchProps {
   displayColor?: string;
   isDark: boolean;
   source?: "token" | "inline";
+  /** Semantic label, e.g. "zinc-950" — shown as a third line below the value */
+  note?: string;
 }
 
-export default function TokenSwatch({ name, value, displayColor, isDark, source = "token" }: TokenSwatchProps) {
+export default function TokenSwatch({ name, value, displayColor, isDark, source = "token", note }: TokenSwatchProps) {
   const labelColor = isDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.85)";
   const sublabelColor = isDark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.4)";
   const border = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)";
@@ -32,6 +34,17 @@ export default function TokenSwatch({ name, value, displayColor, isDark, source 
       <div style={{ fontSize: "10px", color: sublabelColor, wordBreak: "break-all" }}>
         {value}
       </div>
+      {note && (
+        <div
+          style={{
+            fontSize: "10px",
+            fontWeight: 600,
+            color: "rgba(134,239,172,0.8)",
+          }}
+        >
+          {note}
+        </div>
+      )}
       {source === "inline" && (
         <div
           style={{
