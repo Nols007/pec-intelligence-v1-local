@@ -1,10 +1,21 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type PropertyKey = "menlyn" | "waterfall" | "sandton";
+type ViewMode = "residential" | "portfolio" | "pecInternal";
 
-type PropertyData = {
-  name: string;
+type ScopeKey =
+  | "homeMain"
+  | "unit12"
+  | "unit23"
+  | "menlyn"
+  | "waterfall"
+  | "sandton"
+  | "watchdog"
+  | "regional"
+  | "critical";
+
+type ScopeData = {
+  title: string;
   subtitle: string;
   electricity: string;
   electricityTrend: string;
@@ -19,9 +30,72 @@ type PropertyData = {
   alerts: { title: string; severity: "high" | "medium" | "low" }[];
 };
 
-const properties: Record<PropertyKey, PropertyData> = {
+const residentialScopes: Record<"homeMain" | "unit12" | "unit23", ScopeData> = {
+  homeMain: {
+    title: "My Home",
+    subtitle: "Residential Account · Main View",
+    electricity: "388 kWh",
+    electricityTrend: "▲ 6% vs last month",
+    electricityUp: true,
+    water: "12.4 kL",
+    waterTrend: "▼ 3% vs last month",
+    waterUp: false,
+    gas: "—",
+    gasTrend: "No gas connection",
+    gasUp: true,
+    insight:
+      "Electricity usage is slightly elevated compared to last month. Review evening peak usage and appliance scheduling.",
+    alerts: [
+      { title: "Possible abnormal evening consumption detected", severity: "medium" },
+      { title: "Water usage remains stable", severity: "low" },
+      { title: "Projected bill slightly above average", severity: "medium" },
+    ],
+  },
+  unit12: {
+    title: "Unit 12",
+    subtitle: "Residential Unit · Estate View",
+    electricity: "421 kWh",
+    electricityTrend: "▲ 9% vs last month",
+    electricityUp: true,
+    water: "10.8 kL",
+    waterTrend: "▼ 1% vs last month",
+    waterUp: false,
+    gas: "—",
+    gasTrend: "No gas connection",
+    gasUp: true,
+    insight:
+      "Unit 12 shows a stronger electricity increase than expected. Compare occupancy pattern against previous billing period.",
+    alerts: [
+      { title: "Above-normal monthly electricity increase", severity: "high" },
+      { title: "Water remains within expected household range", severity: "low" },
+      { title: "No meter communication issues detected", severity: "low" },
+    ],
+  },
+  unit23: {
+    title: "Unit 23",
+    subtitle: "Residential Unit · Estate View",
+    electricity: "356 kWh",
+    electricityTrend: "▼ 2% vs last month",
+    electricityUp: false,
+    water: "15.2 kL",
+    waterTrend: "▲ 11% vs last month",
+    waterUp: true,
+    gas: "—",
+    gasTrend: "No gas connection",
+    gasUp: true,
+    insight:
+      "Water usage has increased materially. Leak detection or irrigation timing should be reviewed.",
+    alerts: [
+      { title: "Possible water leak pattern detected", severity: "high" },
+      { title: "Electricity trend improving", severity: "low" },
+      { title: "Weekend water variance flagged", severity: "medium" },
+    ],
+  },
+};
+
+const portfolioScopes: Record<"menlyn" | "waterfall" | "sandton", ScopeData> = {
   menlyn: {
-    name: "Menlyn Shopping Centre",
+    title: "Menlyn Shopping Centre",
     subtitle: "Pretoria · Retail Portfolio",
     electricity: "R 182,420",
     electricityTrend: "▲ 4.2% this month",
@@ -41,8 +115,8 @@ const properties: Record<PropertyKey, PropertyData> = {
     ],
   },
   waterfall: {
-    name: "Waterfall Estate",
-    subtitle: "Midrand · Residential Estate",
+    title: "Waterfall Estate",
+    subtitle: "Midrand · Residential Estate Portfolio",
     electricity: "R 96,880",
     electricityTrend: "▲ 2.1% this month",
     electricityUp: true,
@@ -53,16 +127,16 @@ const properties: Record<PropertyKey, PropertyData> = {
     gasTrend: "▼ 0.6% this month",
     gasUp: false,
     insight:
-      "Water usage is trending higher than expected for a residential profile. Review possible irrigation leakage or weekend peak draw.",
+      "Water usage is trending higher than expected for a residential estate profile. Review irrigation and leak events.",
     alerts: [
-      { title: "Possible water leak pattern detected", severity: "high" },
+      { title: "Possible estate water leak pattern detected", severity: "high" },
       { title: "Electricity demand remains within expected range", severity: "low" },
       { title: "Weekend water usage anomaly flagged", severity: "medium" },
     ],
   },
   sandton: {
-    name: "Sandton Office Tower",
-    subtitle: "Johannesburg · Commercial Office",
+    title: "Sandton Office Tower",
+    subtitle: "Johannesburg · Commercial Office Portfolio",
     electricity: "R 143,700",
     electricityTrend: "▼ 1.2% this month",
     electricityUp: false,
@@ -73,7 +147,7 @@ const properties: Record<PropertyKey, PropertyData> = {
     gasTrend: "▲ 1.4% this month",
     gasUp: true,
     insight:
-      "Overall utility profile is improving. Electricity and water are trending downward, but gas consumption should be reviewed against occupancy schedules.",
+      "Overall utility profile is improving. Electricity and water are trending downward, but gas usage should be reviewed against occupancy schedules.",
     alerts: [
       { title: "Electricity efficiency trend improving", severity: "low" },
       { title: "Gas consumption variance above baseline", severity: "medium" },
@@ -82,11 +156,120 @@ const properties: Record<PropertyKey, PropertyData> = {
   },
 };
 
+const internalScopes: Record<"watchdog" | "regional" | "critical", ScopeData> = {
+  watchdog: {
+    title: "Watchdog Reports",
+    subtitle: "PEC Internal · Automated Monitoring View",
+    electricity: "27 Sites",
+    electricityTrend: "5 anomalies detected",
+    electricityUp: true,
+    water: "14 Sites",
+    waterTrend: "3 leak risks flagged",
+    waterUp: true,
+    gas: "4 Sites",
+    gasTrend: "1 variance flagged",
+    gasUp: true,
+    insight:
+      "Watchdog monitoring indicates abnormal electricity and water patterns across multiple sites. Automated exception reporting should be prioritised.",
+    alerts: [
+      { title: "5 site-level energy anomalies require review", severity: "high" },
+      { title: "3 possible water leak events pending validation", severity: "high" },
+      { title: "1 gas variance outside normal baseline", severity: "medium" },
+    ],
+  },
+  regional: {
+    title: "Regional Branch View",
+    subtitle: "PEC Internal · Operations Summary",
+    electricity: "48 Active Sites",
+    electricityTrend: "92% healthy telemetry",
+    electricityUp: true,
+    water: "31 Water Points",
+    waterTrend: "4 sites require attention",
+    waterUp: true,
+    gas: "9 Gas Points",
+    gasTrend: "All online",
+    gasUp: true,
+    insight:
+      "Regional telemetry health is strong overall. A small group of sites still require meter communication follow-up and usage investigation.",
+    alerts: [
+      { title: "4 sites need branch follow-up", severity: "medium" },
+      { title: "Telemetry health remains above target", severity: "low" },
+      { title: "No critical regional service incident detected", severity: "low" },
+    ],
+  },
+  critical: {
+    title: "Critical Alerts",
+    subtitle: "PEC Internal · Priority Incident Queue",
+    electricity: "3 Critical",
+    electricityTrend: "Immediate response required",
+    electricityUp: true,
+    water: "2 Critical",
+    waterTrend: "Leak / burst risk",
+    waterUp: true,
+    gas: "1 Critical",
+    gasTrend: "Consumption spike",
+    gasUp: true,
+    insight:
+      "Critical incident queue shows multiple urgent utility exceptions. Escalation workflows and response coordination should be prioritised.",
+    alerts: [
+      { title: "Critical electricity spike at priority site", severity: "high" },
+      { title: "Burst / leak probability elevated at 2 water sites", severity: "high" },
+      { title: "Gas spike requires urgent validation", severity: "high" },
+    ],
+  },
+};
+
 export default function Home() {
   const navigate = useNavigate();
-  const [selectedProperty, setSelectedProperty] = useState<PropertyKey>("menlyn");
+  const [viewMode, setViewMode] = useState<ViewMode>("portfolio");
+  const [scope, setScope] = useState<ScopeKey>("menlyn");
 
-  const data = useMemo(() => properties[selectedProperty], [selectedProperty]);
+  const currentOptions = useMemo(() => {
+    if (viewMode === "residential") {
+      return [
+        { value: "homeMain", label: "My Home" },
+        { value: "unit12", label: "Unit 12" },
+        { value: "unit23", label: "Unit 23" },
+      ] as const;
+    }
+
+    if (viewMode === "portfolio") {
+      return [
+        { value: "menlyn", label: "Menlyn Shopping Centre" },
+        { value: "waterfall", label: "Waterfall Estate" },
+        { value: "sandton", label: "Sandton Office Tower" },
+      ] as const;
+    }
+
+    return [
+      { value: "watchdog", label: "Watchdog Reports" },
+      { value: "regional", label: "Regional Branch View" },
+      { value: "critical", label: "Critical Alerts" },
+    ] as const;
+  }, [viewMode]);
+
+  const safeScope = useMemo<ScopeKey>(() => {
+    const allowed = currentOptions.map((option) => option.value);
+    return allowed.includes(scope as any) ? scope : currentOptions[0].value;
+  }, [scope, currentOptions]);
+
+  const data = useMemo<ScopeData>(() => {
+    if (viewMode === "residential") {
+      return residentialScopes[safeScope as keyof typeof residentialScopes];
+    }
+    if (viewMode === "portfolio") {
+      return portfolioScopes[safeScope as keyof typeof portfolioScopes];
+    }
+    return internalScopes[safeScope as keyof typeof internalScopes];
+  }, [viewMode, safeScope]);
+
+  const handleModeChange = (value: ViewMode) => {
+    setViewMode(value);
+
+    if (value === "residential") setScope("homeMain");
+    if (value === "portfolio") setScope("menlyn");
+    if (value === "pecInternal") setScope("watchdog");
+  };
 
   return (
     <div
@@ -98,28 +281,45 @@ export default function Home() {
         fontFamily: "system-ui, -apple-system, sans-serif",
       }}
     >
-      {/* Header */}
       <div style={{ marginBottom: "24px" }}>
         <h1 style={{ fontSize: "32px", margin: "0 0 6px 0" }}>PEC Intelligence</h1>
         <div style={{ opacity: 0.6 }}>Utility Performance Dashboard</div>
       </div>
 
-      {/* Property Selector */}
-      <div style={{ marginBottom: "24px" }}>
-        <div style={{ ...sectionLabel, marginBottom: "10px" }}>Selected Property</div>
-
+      {/* View Mode */}
+      <div style={{ marginBottom: "18px" }}>
+        <div style={{ ...sectionLabel, marginBottom: "10px" }}>View Mode</div>
         <div style={selectorWrap}>
+          <div style={selectorChevron}>▼</div>
           <select
-            value={selectedProperty}
-            onChange={(e) => setSelectedProperty(e.target.value as PropertyKey)}
+            value={viewMode}
+            onChange={(e) => handleModeChange(e.target.value as ViewMode)}
             style={selectorStyle}
           >
-            <option value="menlyn">Menlyn Shopping Centre</option>
-            <option value="waterfall">Waterfall Estate</option>
-            <option value="sandton">Sandton Office Tower</option>
+            <option value="residential">Residential</option>
+            <option value="portfolio">Portfolio</option>
+            <option value="pecInternal">PEC Internal</option>
           </select>
         </div>
+      </div>
 
+      {/* Scope */}
+      <div style={{ marginBottom: "24px" }}>
+        <div style={{ ...sectionLabel, marginBottom: "10px" }}>Scope</div>
+        <div style={selectorWrap}>
+          <div style={selectorChevron}>▼</div>
+          <select
+            value={safeScope}
+            onChange={(e) => setScope(e.target.value as ScopeKey)}
+            style={selectorStyle}
+          >
+            {currentOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div style={{ marginTop: "10px", opacity: 0.65, fontSize: "14px" }}>
           {data.subtitle}
         </div>
@@ -128,7 +328,6 @@ export default function Home() {
       {/* Alerts */}
       <div style={{ marginBottom: "28px" }}>
         <div style={{ ...sectionLabel, marginBottom: "12px" }}>Active Alerts</div>
-
         <div style={{ display: "grid", gap: "12px" }}>
           {data.alerts.map((alert, index) => (
             <div key={index} style={alertCard(alert.severity)}>
@@ -149,13 +348,7 @@ export default function Home() {
       </div>
 
       {/* Utility Cards */}
-      <div
-        style={{
-          display: "grid",
-          gap: "16px",
-          gridTemplateColumns: "1fr",
-        }}
-      >
+      <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "1fr" }}>
         <div style={cardStyle}>
           <div style={labelStyle}>Electricity</div>
           <div style={valueStyle}>{data.electricity}</div>
@@ -193,7 +386,6 @@ export default function Home() {
       {/* Quick Actions */}
       <div style={{ marginTop: "32px" }}>
         <div style={{ fontWeight: 700, marginBottom: "12px" }}>Quick Actions</div>
-
         <div
           style={{
             display: "grid",
@@ -262,10 +454,21 @@ const sectionLabel: React.CSSProperties = {
 };
 
 const selectorWrap: React.CSSProperties = {
+  position: "relative",
   background: "rgba(255,255,255,0.05)",
   border: "1px solid rgba(255,255,255,0.08)",
   borderRadius: "14px",
   overflow: "hidden",
+};
+
+const selectorChevron: React.CSSProperties = {
+  position: "absolute",
+  right: "16px",
+  top: "50%",
+  transform: "translateY(-50%)",
+  pointerEvents: "none",
+  opacity: 0.7,
+  fontSize: "12px",
 };
 
 const selectorStyle: React.CSSProperties = {
