@@ -9,6 +9,7 @@ import Meters from "./pages/meters";
 import Support from "./pages/support";
 import NotFound from "./pages/not-found";
 import Advisory from "./pages/advisory";
+import StyleGuide from "./pages/style-guide";
 import Insights from "./pages/insights";
 
 export default function App() {
@@ -31,6 +32,8 @@ export default function App() {
 
       {/* Optional: if anything links to /payment in BottomNav */}
       <Route path="/payment" element={<Navigate to="/bills" replace />} />
+
+      <Route path="/style-guide" element={<StyleGuide />} />
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />

@@ -28,7 +28,7 @@ async function start() {
 
   // IMPORTANT (Replit): always listen on process.env.PORT
   const rawPort = process.env.PORT;
-  const port = rawPort ? Number(rawPort) : 5000;
+  const port = rawPort ? Number(rawPort) : 3000;
 
   if (!Number.isFinite(port)) {
     throw new Error(`Invalid PORT: "${rawPort}"`);
