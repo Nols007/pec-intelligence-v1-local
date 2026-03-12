@@ -142,6 +142,7 @@ export default function StyleGuide() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { toast } = useToast();
 
   const bg = isDark ? "#0d0d0d" : "#f5f5f5";
@@ -456,6 +457,24 @@ export default function StyleGuide() {
           description="Tailwind CSS custom token colours and inline-only colour values."
           isDark={isDark}
         >
+          {/* Audit row — colour system status */}
+          <CompareRow
+            label="CSS variable token system"
+            status="USED"
+            isDark={isDark}
+            shadcnSlot={<span style={{ fontSize: 13, opacity: 0.6 }}>shadcn default palette (zinc/slate)</span>}
+            appNote="All core UI colours defined as Tailwind CSS vars (--background, --primary, etc.)"
+            note="Token system is used throughout the app. Inline rgba values are used for overlays and alerts only."
+          />
+          <CompareRow
+            label="Inline-only rgba colours"
+            status="DUPLICATE"
+            isDark={isDark}
+            shadcnSlot={<span style={{ fontSize: 13, opacity: 0.6 }}>Not present in shadcn token system</span>}
+            appNote="rgba values hardcoded inline (alert backgrounds, surface overlays, border alphas)"
+            note="These are not in the token system — candidates for tokenisation in a future refactor."
+          />
+
           {/* Token swatches sub-section */}
           <div style={{ padding: "20px" }}>
             <div style={{ fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", opacity: 0.5, textTransform: "uppercase", marginBottom: "16px" }}>
@@ -848,15 +867,15 @@ export default function StyleGuide() {
             status="UNUSED"
             isDark={isDark}
             shadcnSlot={
-              <DropdownMenu>
+              <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline">Open Menu ▾</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => setDropdownOpen(false)}>Profile</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => setDropdownOpen(false)}>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Log out</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => setDropdownOpen(false)}>Log out</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             }
@@ -1267,6 +1286,26 @@ export default function StyleGuide() {
 
         {/* ── Section 12: Layout & Spacing ── */}
         <SectionBlock id="layout" title="12. Layout & Spacing" isDark={isDark}>
+          <CompareRow
+            label=".page CSS class"
+            status="USED"
+            appNote="all page components — max-width: 980px; padding: 18px"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent — inline max-width pattern</span>}
+            appSlot={
+              <div style={{ padding: "10px 16px", borderRadius: "8px", border: isDark ? "1px dashed rgba(255,255,255,0.2)" : "1px dashed rgba(0,0,0,0.2)", fontSize: "13px", opacity: 0.85 }}>
+                <code style={{ fontFamily: "monospace" }}>max-width: 980px; padding: 18px</code>
+              </div>
+            }
+          />
+          <CompareRow
+            label="PageContainer.tsx"
+            status="UNUSED"
+            appNote="layout/PageContainer.tsx — exists but never imported by any page"
+            isDark={isDark}
+            shadcnSlot={<span style={{ opacity: 0.45, fontSize: "12px", fontStyle: "italic" }}>No shadcn equivalent</span>}
+            note="PageContainer.tsx wraps .page class logic but is never imported — all pages apply layout inline."
+          />
           <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "32px" }}>
             {/* Border radius tokens */}
             <div>
