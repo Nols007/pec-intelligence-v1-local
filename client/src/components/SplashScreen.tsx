@@ -1,20 +1,19 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface SplashProps {
-  onFinish: () => void;
-}
+export default function SplashScreen() {
+  const navigate = useNavigate();
 
-export default function SplashScreen({ onFinish }: SplashProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      onFinish();
-    }, 5000); // 5 seconds for demo
+      navigate("/dashboard");
+    }, 2500);
 
     return () => clearTimeout(timer);
-  }, [onFinish]);
+  }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white animate-fadeIn">
       <div className="text-center space-y-6">
 
         {/* PEC Logo */}

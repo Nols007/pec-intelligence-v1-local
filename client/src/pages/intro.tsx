@@ -8,99 +8,138 @@ export default function Intro() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/home");
-    }, 5000);
+    }, 5000); // 5 seconds for demo
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background:
-          "radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 45%, #000000 100%)",
-        color: "#ffffff",
-        textAlign: "center",
-        padding: "24px",
-      }}
-    >
-      <img
-        src={pecLogo}
-        alt="PEC Utility Management"
-        style={{
-          width: "220px",
-          marginBottom: "24px",
-          filter: "drop-shadow(0 0 24px rgba(255,255,255,0.18))",
-        }}
-      />
-
-      <h1
-        style={{
-          fontSize: "34px",
-          fontWeight: 700,
-          letterSpacing: "0.02em",
-          margin: 0,
-        }}
-      >
-        PEC Intelligence
-      </h1>
-
-      <p
-        style={{
-          opacity: 0.8,
-          marginTop: "10px",
-          marginBottom: "28px",
-          fontSize: "15px",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-        }}
-      >
-        Smart Utility Insights
-      </p>
-
+    <>
       <div
         style={{
-          width: "220px",
-          height: "6px",
-          borderRadius: "999px",
-          background: "rgba(255,255,255,0.12)",
-          overflow: "hidden",
-          marginBottom: "18px",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background:
+            "radial-gradient(circle at top, #101114 0%, #06070a 45%, #000000 100%)",
+          color: "#ffffff",
+          textAlign: "center",
+          padding: "24px",
         }}
       >
         <div
           style={{
-            width: "60%",
-            height: "100%",
-            borderRadius: "999px",
-            background: "linear-gradient(90deg, #22c55e, #3b82f6, #7c3aed)",
-            boxShadow: "0 0 18px rgba(59,130,246,0.55)",
-            animation: "pulseBar 1.8s ease-in-out infinite",
+            width: "100%",
+            maxWidth: "420px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            animation: "fadeInSplash 1s ease-out",
           }}
-        />
+        >
+          <img
+            src={pecLogo}
+            alt="PEC Utility Management"
+            style={{
+              width: "100%",
+              maxWidth: "300px",
+              height: "auto",
+              marginBottom: "26px",
+              filter: "drop-shadow(0 0 28px rgba(255,255,255,0.18)) drop-shadow(0 0 60px rgba(59,130,246,0.15))",
+            }}
+          />
+
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "clamp(32px, 7vw, 56px)",
+              fontWeight: 800,
+              lineHeight: 1.02,
+              letterSpacing: "-0.03em",
+              color: "rgba(255,255,255,0.98)",
+            }}
+          >
+            PEC Intelligence
+          </h1>
+
+          <p
+            style={{
+              marginTop: "14px",
+              marginBottom: "34px",
+              fontSize: "clamp(14px, 3.2vw, 18px)",
+              fontWeight: 500,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.72)",
+            }}
+          >
+            Smart Utility Insights
+          </p>
+
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "260px",
+              height: "8px",
+              borderRadius: "999px",
+              background: "rgba(255,255,255,0.14)",
+              overflow: "hidden",
+              marginBottom: "20px",
+            }}
+          >
+            <div
+              style={{
+                width: "60%",
+                height: "100%",
+                borderRadius: "999px",
+                background: "linear-gradient(90deg, #22c55e, #3b82f6, #7c3aed)",
+                boxShadow: "0 0 14px rgba(59,130,246,0.45)",
+                animation: "loadingPulse 1.8s ease-in-out infinite",
+                transformOrigin: "left center",
+              }}
+            />
+          </div>
+
+          <p
+            style={{
+              margin: 0,
+              fontSize: "clamp(14px, 3vw, 16px)",
+              color: "rgba(255,255,255,0.58)",
+            }}
+          >
+            Loading...
+          </p>
+        </div>
       </div>
 
-      <p
-        style={{
-          fontSize: "15px",
-          color: "rgba(255,255,255,0.65)",
-          margin: 0,
-        }}
-      >
-        Loading...
-      </p>
-
       <style>{`
-        @keyframes pulseBar {
-          0% { opacity: 0.55; transform: scaleX(0.96); }
-          50% { opacity: 1; transform: scaleX(1); }
-          100% { opacity: 0.55; transform: scaleX(0.96); }
+        @keyframes fadeInSplash {
+          from {
+            opacity: 0;
+            transform: scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes loadingPulse {
+          0% {
+            opacity: 0.55;
+            transform: scaleX(0.94);
+          }
+          50% {
+            opacity: 1;
+            transform: scaleX(1);
+          }
+          100% {
+            opacity: 0.55;
+            transform: scaleX(0.94);
+          }
         }
       `}</style>
-    </div>
+    </>
   );
 }

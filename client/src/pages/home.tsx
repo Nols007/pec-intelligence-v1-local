@@ -1,204 +1,188 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  return (
-    <div style={{ display: "grid", gap: 18 }}>
-      <div style={{ opacity: 0.75 }}>
-        Demo mode • Data stored on this device only.
-      </div>
+  const navigate = useNavigate();
 
-      {/* PEC Intelligence */}
-      <div
-        style={{
-          padding: 18,
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(255,255,255,0.06)",
-          display: "grid",
-          gap: 12,
-        }}
-      >
-        <div style={{ fontSize: 22, fontWeight: 900 }}>
-          PEC Intelligence
-        </div>
-
-        <IntelligenceRow label="Alert" count={2} color="#f59e0b" />
-        <div style={{
-          paddingLeft: 18,
-          fontSize: 13,
-          opacity: 0.8,
-          display: "grid",
-          gap: 6
-        }}>
-          <div>• Electricity usage 22% above last cycle</div>
-          <div>• Possible abnormal consumption detected</div>
-        </div>
-        <IntelligenceRow label="Advisory" count={1} color="#3b82f6" />
-        <IntelligenceRow label="Insight" count={4} color="#22c55e" />
-      </div>
-
-      {/* Utility Snapshot */}
-      <div
-        style={{
-          padding: 18,
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(255,255,255,0.06)",
-          display: "grid",
-          gap: 14,
-        }}
-      >
-        <div style={{ fontSize: 22, fontWeight: 900 }}>
-          Utility Snapshot
-        </div>
-
-        <SnapshotCard
-          title="Electricity"
-          value="388 kWh"
-          insight="↑ 6% vs last month"
-        />
-
-        <SnapshotCard
-          title="Water"
-          value="12.4 kL"
-          insight="↓ 3% vs last month"
-        />
-
-        <SnapshotCard
-          title="Projected Bill"
-          value="R 1,455"
-          insight="Estimated for current cycle"
-        />
-
-        <SnapshotCard
-          title="System Status"
-          value="Normal operation"
-          insight="No abnormal usage detected"
-        />
-      </div>
-
-      {/* Quick Links */}
-      <div
-        style={{
-          padding: 16,
-          borderRadius: 18,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(255,255,255,0.06)",
-        }}
-      >
-        <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 10 }}>
-          Quick Links
-        </div>
-
-        <div style={{ display: "grid", gap: 10 }}>
-          <Link to="/dashboard" style={linkStyle}>
-            Open Dashboard
-          </Link>
-
-          <Link to="/usage" style={linkStyle}>
-            Explore Usage Trends
-          </Link>
-
-          <Link to="/bills" style={linkStyle}>
-            Review Billing
-          </Link>
-
-          <Link to="/meters" style={linkStyle}>
-            Monitor Meters
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IntelligenceRow(props: {
-  label: string;
-  count: number;
-  color: string;
-}) {
-  const path =
-    props.label === "Alert"
-      ? "/alerts"
-      : props.label === "Advisory"
-      ? "/advisory"
-      : "/insights";
-
-  return (
-    <Link
-      to={path}
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "12px 14px",
-        borderRadius: 14,
-        background: "rgba(0,0,0,0.25)",
-        border: "1px solid rgba(255,255,255,0.1)",
-        fontWeight: 800,
-        textDecoration: "none",
-        color: "white",
-      }}
-    >
-      <span>
-        {props.label === "Alert" && "⚠ "}
-        {props.label === "Advisory" && "💡 "}
-        {props.label === "Insight" && "📊 "}
-        {props.label}
-      </span>
-
-      {props.count > 0 && (
-        <span
-          style={{
-            background: props.color,
-            color: "black",
-            borderRadius: 999,
-            padding: "2px 10px",
-            fontSize: 12,
-            fontWeight: 900,
-          }}
-        >
-          {props.count}
-        </span>
-      )}
-    </Link>
-  );
-}
-
-function SnapshotCard(props: {
-  title: string;
-  value: string;
-  insight: string;
-}) {
   return (
     <div
       style={{
-        padding: 16,
-        borderRadius: 16,
-        border: "1px solid rgba(255,255,255,0.12)",
-        background: "rgba(0,0,0,0.25)",
+        minHeight: "100vh",
+        background: "linear-gradient(180deg,#050607,#0b0d10)",
+        color: "#fff",
+        padding: "24px 24px 120px 24px",
+        fontFamily: "system-ui, -apple-system, sans-serif",
       }}
     >
-      <div style={{ fontWeight: 900 }}>{props.title}</div>
-
-      <div style={{ fontSize: 28, fontWeight: 950, marginTop: 6 }}>
-        {props.value}
+      {/* Header */}
+      <div style={{ marginBottom: "32px" }}>
+        <h1 style={{ fontSize: "32px", margin: "0 0 6px 0" }}>
+          PEC Intelligence
+        </h1>
+        <div style={{ opacity: 0.6 }}>Utility Performance Dashboard</div>
       </div>
 
-      <div style={{ marginTop: 6, opacity: 0.75 }}>
-        {props.insight}
+      {/* Utility Cards */}
+      <div
+        style={{
+          display: "grid",
+          gap: "16px",
+          gridTemplateColumns: "1fr",
+        }}
+      >
+        <div style={cardStyle}>
+          <div style={labelStyle}>Electricity</div>
+          <div style={valueStyle}>R 182,420</div>
+          <div style={trendUp}>▲ 4.2% this month</div>
+        </div>
+
+        <div style={cardStyle}>
+          <div style={labelStyle}>Water</div>
+          <div style={valueStyle}>R 46,310</div>
+          <div style={trendDown}>▼ 1.8% this month</div>
+        </div>
+
+        <div style={cardStyle}>
+          <div style={labelStyle}>Gas</div>
+          <div style={valueStyle}>R 28,905</div>
+          <div style={trendUp}>▲ 0.9% this month</div>
+        </div>
+      </div>
+
+      {/* AI Insight */}
+      <div
+        style={{
+          marginTop: "32px",
+          padding: "20px",
+          borderRadius: "16px",
+          background: "rgba(255,255,255,0.05)",
+        }}
+      >
+        <div style={{ fontWeight: 700, marginBottom: "8px" }}>AI Insight</div>
+        <div style={{ opacity: 0.72, lineHeight: 1.5 }}>
+          Electricity usage increased slightly compared to last month.
+          Investigate HVAC load during peak afternoon periods.
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div style={{ marginTop: "32px" }}>
+        <div style={{ fontWeight: 700, marginBottom: "12px" }}>
+          Quick Actions
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "12px",
+          }}
+        >
+          <button style={actionButton} onClick={() => navigate("/usage")}>
+            View Usage
+          </button>
+
+          <button style={actionButton} onClick={() => navigate("/bills")}>
+            View Bills
+          </button>
+
+          <button style={actionButton} onClick={() => navigate("/meters")}>
+            Meters
+          </button>
+
+          <button style={actionButton} onClick={() => navigate("/support")}>
+            Support
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Nav */}
+      <div
+        style={{
+          position: "fixed",
+          left: 16,
+          right: 16,
+          bottom: 16,
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "10px",
+          padding: "10px",
+          borderRadius: "18px",
+          background: "rgba(18,18,20,0.92)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+        }}
+      >
+        <button style={navButtonActive} onClick={() => navigate("/home")}>
+          Home
+        </button>
+        <button style={navButton} onClick={() => navigate("/usage")}>
+          Usage
+        </button>
+        <button style={navButton} onClick={() => navigate("/bills")}>
+          Bills
+        </button>
+        <button style={navButton} onClick={() => navigate("/support")}>
+          Support
+        </button>
       </div>
     </div>
   );
 }
 
-const linkStyle: React.CSSProperties = {
-  display: "block",
-  padding: "12px 14px",
-  borderRadius: 14,
-  border: "1px solid rgba(255,255,255,0.14)",
-  background: "rgba(0,0,0,0.25)",
-  color: "white",
-  textDecoration: "none",
-  fontWeight: 900,
+const cardStyle: React.CSSProperties = {
+  padding: "20px",
+  borderRadius: "16px",
+  background: "rgba(255,255,255,0.05)",
+};
+
+const labelStyle: React.CSSProperties = {
+  fontSize: "14px",
+  opacity: 0.65,
+  marginBottom: "6px",
+};
+
+const valueStyle: React.CSSProperties = {
+  fontSize: "28px",
+  fontWeight: 800,
+};
+
+const trendUp: React.CSSProperties = {
+  color: "#4ade80",
+  marginTop: "6px",
+  fontWeight: 600,
+};
+
+const trendDown: React.CSSProperties = {
+  color: "#f87171",
+  marginTop: "6px",
+  fontWeight: 600,
+};
+
+const actionButton: React.CSSProperties = {
+  background: "rgba(255,255,255,0.06)",
+  color: "#fff",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: "14px",
+  padding: "14px 16px",
+  fontSize: "15px",
+  fontWeight: 600,
+  cursor: "pointer",
+};
+
+const navButton: React.CSSProperties = {
+  background: "transparent",
+  color: "rgba(255,255,255,0.7)",
+  border: "none",
+  borderRadius: "12px",
+  padding: "12px 8px",
+  fontSize: "14px",
+  fontWeight: 700,
+  cursor: "pointer",
+};
+
+const navButtonActive: React.CSSProperties = {
+  ...navButton,
+  background: "rgba(255,255,255,0.08)",
+  color: "#ffffff",
 };
