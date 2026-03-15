@@ -1,35 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { usePecView } from "../state/pecView";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "../components/ui/button";
 
 export default function Meters() {
   const { view } = usePecView();
 
   return (
-    <div style={{ display: "grid", gap: 16 }}>
-      <div style={{ fontSize: 46, fontWeight: 950, lineHeight: 1 }}>
+    <div className="grid gap-4">
+      <h1 className="text-[2.875rem] font-extrabold leading-none">
         Meters ({view === "residential" ? "Residential" : "Portfolio"})
-      </div>
-      <div style={{ opacity: 0.75 }}>Demo placeholder</div>
+      </h1>
+      <p className="opacity-75">Demo placeholder</p>
 
-      <div
-        className="card"
-        style={{
-          padding: 18,
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.12)",
-          background: "rgba(255,255,255,0.06)",
-          display: "grid",
-          gap: 12,
-        }}
-      >
-        <MeterRow name="Electricity Meter" meta="Prepaid • demo" value="Last read: 12,430 kWh" />
-        <MeterRow name="Water Meter" meta="Municipal • demo" value="Last read: 884 kL" />
-      </div>
+      <Card className="bg-background border-border">
+        <CardContent className="grid gap-3 p-4">
+          <MeterRow name="Electricity Meter" meta="Prepaid • demo" value="Last read: 12,430 kWh" />
+          <MeterRow name="Water Meter" meta="Municipal • demo" value="Last read: 884 kL" />
+        </CardContent>
+      </Card>
 
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <Link to="/dashboard" style={linkStyle}>← Back to Dashboard</Link>
-        <Link to="/" style={linkStyle}>← Home</Link>
+      <div className="flex flex-wrap gap-2">
+        <Button variant="outline" asChild>
+          <Link to="/dashboard">← Back to Dashboard</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link to="/">← Home</Link>
+        </Button>
       </div>
     </div>
   );
@@ -37,20 +35,15 @@ export default function Meters() {
 
 function MeterRow(props: { name: string; meta: string; value: string }) {
   return (
-    <div
-      style={{
-        padding: 14,
-        borderRadius: 16,
-        border: "1px solid rgba(255,255,255,0.12)",
-        background: "rgba(0,0,0,0.25)",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
-        <div style={{ fontWeight: 950 }}>{props.name}</div>
-        <div style={{ opacity: 0.7, fontWeight: 700 }}>{props.meta}</div>
-      </div>
-      <div style={{ marginTop: 8, opacity: 0.85 }}>{props.value}</div>
-    </div>
+    <Card className="bg-background/40 border-border border">
+      <CardContent className="p-4 pt-2">
+        <div className="flex justify-between gap-2">
+          <div className="font-extrabold">{props.name}</div>
+          <div className="opacity-70 font-semibold">{props.meta}</div>
+        </div>
+        <div className="opacity-85 mt-2">{props.value}</div>
+      </CardContent>
+    </Card>
   );
 }
 

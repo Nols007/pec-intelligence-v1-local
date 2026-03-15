@@ -1,5 +1,8 @@
+
 import React, { useMemo, useState } from "react";
 import { nowTimestamp } from "../lib/demoData";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../components/ui/card";
+import { Button } from "../components/ui/button";
 
 type Ticket = {
   id: string;
@@ -55,43 +58,47 @@ export default function Support() {
   }
 
   return (
-    <div>
-      <div className="h1">Support</div>
-      <div className="sub">Log a ticket (demo) — stored on this device only.</div>
+    <div className="p-4 min-h-screen bg-background text-foreground">
+      <Card className="max-w-xl mx-auto">
+        <CardHeader>
+          <CardTitle>Support</CardTitle>
+          <p className="text-muted-foreground">Log a ticket (demo) — stored on this device only.</p>
+        </CardHeader>
 
-      <div className="card cardPad">
-        <div style={{ fontWeight: 900, marginBottom: 8 }}>Select your issue</div>
-        <select className="select" value={issue} onChange={(e) => setIssue(e.target.value)}>
-          <option>Meter reading issue</option>
-          <option>Incorrect bill / invoice</option>
-          <option>Payment query</option>
-          <option>Water leak / burst pipe</option>
-          <option>Electricity outage</option>
-          <option>General query</option>
-        </select>
+        <CardContent>
+          <div className="mb-4 font-semibold">Select your issue</div>
+          <select
+            className="w-full rounded-md border border-border bg-background text-foreground p-2"
+            value={issue}
+            onChange={(e) => setIssue(e.target.value)}
+          >
+            <option>Meter reading issue</option>
+            <option>Incorrect bill / invoice</option>
+            <option>Payment query</option>
+            <option>Water leak / burst pipe</option>
+            <option>Electricity outage</option>
+            <option>General query</option>
+          </select>
 
-        <div style={{ height: 12 }} />
+          <div className="mt-6 mb-4 font-semibold">Short description</div>
+          <textarea
+            className="w-full rounded-md border border-border bg-background text-foreground p-2 resize-y min-h-[80px]"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Type a short description…"
+          />
 
-        <div style={{ fontWeight: 900, marginBottom: 8 }}>Short description</div>
-        <textarea
-          className="textarea"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-          placeholder="Type a short description…"
-        />
+          {error ? (
+            <div className="mt-3 p-2 font-semibold text-destructive">{error}</div>
+          ) : null}
+        </CardContent>
 
-        {error ? (
-          <div className="errorBox" style={{ marginTop: 12, fontWeight: 750 }}>
-            {error}
-          </div>
-        ) : null}
-
-        <div style={{ marginTop: 12, display: "flex", gap: 10 }}>
-          <button className="btn btnRed" onClick={submit}>
+        <CardFooter className="flex gap-4">
+          <Button variant="destructive" onClick={submit}>
             Submit ticket
-          </button>
-          <button
-            className="btn"
+          </Button>
+          <Button
+            variant="default"
             onClick={() => {
               const sure = confirm("Clear all demo tickets on this device?");
               if (!sure) return;
@@ -100,31 +107,29 @@ export default function Support() {
             }}
           >
             Clear demo tickets
-          </button>
-        </div>
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <div className="mt-8 max-w-xl mx-auto">
+        <h2 className="text-lg font-extrabold mb-3">Logged tickets</h2>
+
+        {sorted.length === 0 ? (
+          <div className="text-muted-foreground font-semibold">No tickets yet.</div>
+        ) : (
+          <div className="grid gap-4">
+            {sorted.map((t) => (
+              <Card key={t.id} className="p-4">
+                <div className="flex justify-between items-baseline gap-3">
+                  <div className="font-extrabold text-lg">{t.issue}</div>
+                  <div className="text-muted-foreground font-bold">{t.createdAt}</div>
+                </div>
+                <div className="mt-2 font-semibold text-muted-foreground">{t.desc}</div>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
-
-      <div className="divider" />
-
-      <div style={{ fontSize: 22, fontWeight: 950, marginBottom: 10 }}>Logged tickets</div>
-
-      {sorted.length === 0 ? (
-        <div className="muted" style={{ fontWeight: 700 }}>No tickets yet.</div>
-      ) : (
-        <div style={{ display: "grid", gap: 12 }}>
-          {sorted.map((t) => (
-            <div key={t.id} className="card cardPad">
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
-                <div style={{ fontSize: 18, fontWeight: 950 }}>{t.issue}</div>
-                <div className="muted" style={{ fontWeight: 800 }}>{t.createdAt}</div>
-              </div>
-              <div style={{ marginTop: 8, fontWeight: 750, color: "rgba(255,255,255,0.80)" }}>
-                {t.desc}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

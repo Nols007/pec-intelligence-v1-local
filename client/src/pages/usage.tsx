@@ -1,165 +1,98 @@
 import { useNavigate } from "react-router-dom";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function Usage() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(180deg,#050607,#0b0d10)",
-        color: "#fff",
-        padding: "24px 24px 120px 24px",
-        fontFamily: "system-ui,-apple-system,sans-serif",
-      }}
-    >
+    <div className="min-h-screen bg-background text-foreground p-6 pb-32 font-sans">
       {/* Header */}
-      <div style={{ marginBottom: "24px" }}>
-        <h1 style={{ margin: 0, fontSize: "30px" }}>Usage Intelligence</h1>
-        <div style={{ opacity: 0.6 }}>Utility consumption analytics</div>
+      <div className="mb-6">
+        <h1 className="m-0 text-3xl font-semibold">Usage Intelligence</h1>
+        <div className="opacity-60">Utility consumption analytics</div>
       </div>
 
       {/* Electricity Trend */}
-      <div style={card}>
-        <div style={cardTitle}>Electricity Trend</div>
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle>Electricity Trend</CardTitle>
+        </CardHeader>
 
-        <div style={graph}>
-          <div style={{ height: "60%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "75%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "68%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "82%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "90%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "78%", background: "#22c55e", width: "6%" }} />
-          <div style={{ height: "85%", background: "#22c55e", width: "6%" }} />
-        </div>
+        <CardContent className="flex items-end gap-2.5 h-30 mb-3">
+          <div className="bg-green-500 w-1.5" style={{ height: "60%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "75%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "68%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "82%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "90%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "78%" }} />
+          <div className="bg-green-500 w-1.5" style={{ height: "85%" }} />
+        </CardContent>
 
-        <div style={trendUp}>▲ +4.2% month-on-month</div>
-      </div>
+        <div className="text-green-400 font-semibold">▲ +4.2% month-on-month</div>
+      </Card>
 
       {/* Water Trend */}
-      <div style={card}>
-        <div style={cardTitle}>Water Trend</div>
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle>Water Trend</CardTitle>
+        </CardHeader>
 
-        <div style={graph}>
-          <div style={{ height: "55%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "52%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "48%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "45%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "42%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "40%", background: "#38bdf8", width: "6%" }} />
-          <div style={{ height: "38%", background: "#38bdf8", width: "6%" }} />
-        </div>
+        <CardContent className="flex items-end gap-2.5 h-30 mb-3">
+          <div className="bg-sky-400 w-1.5" style={{ height: "55%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "52%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "48%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "45%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "42%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "40%" }} />
+          <div className="bg-sky-400 w-1.5" style={{ height: "38%" }} />
+        </CardContent>
 
-        <div style={trendDown}>▼ -1.8% month-on-month</div>
-      </div>
+        <div className="text-red-400 font-semibold">▼ -1.8% month-on-month</div>
+      </Card>
 
       {/* Cost Projection */}
-      <div style={card}>
-        <div style={cardTitle}>Projected Monthly Cost</div>
+      <Card className="mb-5">
+        <CardHeader>
+          <CardTitle>Projected Monthly Cost</CardTitle>
+        </CardHeader>
 
-        <div style={bigValue}>R 195,000</div>
+        <div className="text-3xl font-extrabold mb-1">R 195,000</div>
 
-        <div style={{ opacity: 0.7 }}>
+        <div className="opacity-70">
           Estimated electricity spend next billing cycle
         </div>
-      </div>
+      </Card>
 
       {/* AI Insight */}
-      <div style={card}>
-        <div style={cardTitle}>AI Insight</div>
+      <Card>
+        <CardHeader>
+          <CardTitle>AI Insight</CardTitle>
+        </CardHeader>
 
-        <div style={{ opacity: 0.75, lineHeight: 1.5 }}>
+        <div className="opacity-75 leading-relaxed">
           Weekend electricity consumption spikes detected. Investigate HVAC
           scheduling or tenant after-hours usage patterns.
         </div>
-      </div>
+      </Card>
 
       {/* Bottom Nav */}
       <div
-        style={{
-          position: "fixed",
-          left: 16,
-          right: 16,
-          bottom: 16,
-          display: "grid",
-          gridTemplateColumns: "repeat(4,1fr)",
-          gap: "10px",
-          padding: "10px",
-          borderRadius: "18px",
-          background: "rgba(18,18,20,0.92)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-        }}
+        className="fixed left-4 right-4 bottom-4 grid grid-cols-4 gap-2.5 p-2.5 rounded-2xl bg-background/90 backdrop-blur-md border border-border shadow-lg"
       >
-        <button style={navButton} onClick={() => navigate("/home")}>
+        <Button variant="ghost" onClick={() => navigate("/home")}>
           Home
-        </button>
-
-        <button style={navButtonActive}>Usage</button>
-
-        <button style={navButton} onClick={() => navigate("/bills")}>
+        </Button>
+        <Button variant="ghost" className="bg-muted/10" disabled>
+          Usage
+        </Button>
+        <Button variant="ghost" onClick={() => navigate("/bills")}>
           Bills
-        </button>
-
-        <button style={navButton} onClick={() => navigate("/support")}>
+        </Button>
+        <Button variant="ghost" onClick={() => navigate("/support")}>
           Support
-        </button>
+        </Button>
       </div>
     </div>
   );
 }
-
-const card = {
-  background: "rgba(255,255,255,0.05)",
-  borderRadius: "16px",
-  padding: "20px",
-  marginBottom: "18px",
-};
-
-const cardTitle = {
-  fontSize: "18px",
-  fontWeight: 700,
-  marginBottom: "12px",
-};
-
-const graph = {
-  display: "flex",
-  alignItems: "flex-end",
-  gap: "8px",
-  height: "120px",
-  marginBottom: "12px",
-};
-
-const bigValue = {
-  fontSize: "32px",
-  fontWeight: 800,
-  marginBottom: "6px",
-};
-
-const trendUp = {
-  color: "#4ade80",
-  fontWeight: 600,
-};
-
-const trendDown = {
-  color: "#f87171",
-  fontWeight: 600,
-};
-
-const navButton = {
-  background: "transparent",
-  color: "rgba(255,255,255,0.7)",
-  border: "none",
-  borderRadius: "12px",
-  padding: "12px 8px",
-  fontSize: "14px",
-  fontWeight: 700,
-  cursor: "pointer",
-};
-
-const navButtonActive = {
-  ...navButton,
-  background: "rgba(255,255,255,0.08)",
-  color: "#fff",
-};

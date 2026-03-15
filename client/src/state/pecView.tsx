@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-export type PecView = "residential" | "portfolio";
+export type PecView = "residential" | "portfolio" | "pecInternal";
 
 type PecViewContextValue = {
   view: PecView;
@@ -18,7 +18,11 @@ export function PecViewProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "residential" || saved === "portfolio") {
+     if (
+  saved === "residential" ||
+  saved === "portfolio" ||
+  saved === "pecInternal"
+) {
         setViewState(saved);
       }
     } catch {
