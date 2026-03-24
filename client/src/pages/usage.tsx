@@ -1,15 +1,25 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { usePecView } from "../state/pecView";
 
 export default function Usage() {
   const navigate = useNavigate();
+  const { view } = usePecView();
+  const [pageTitle, setPageTitle] = useState("");
+
+  useEffect(() => {
+    if (view === "residential") setPageTitle("Usage - Residential View");
+    else if (view === "portfolio") setPageTitle("Usage - Portfolio View");
+    else if (view === "pecInternal") setPageTitle("Usage - PEC Internal View");
+  }, [view]);
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6 pb-32 font-sans">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="m-0 text-3xl font-semibold">Usage Intelligence</h1>
+        <h1 className="m-0 text-3xl font-semibold">{pageTitle}</h1>
         <div className="opacity-60">Utility consumption analytics</div>
       </div>
 

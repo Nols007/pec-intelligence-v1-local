@@ -1,8 +1,8 @@
-
 import React, { useMemo, useState } from "react";
 import { nowTimestamp } from "../lib/demoData";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import { Link } from "react-router-dom";
 
 type Ticket = {
   id: string;
@@ -58,39 +58,46 @@ export default function Support() {
   }
 
   return (
-    <div className="p-4 min-h-screen bg-background text-foreground">
-      <Card className="max-w-xl mx-auto">
-        <CardHeader>
-          <CardTitle>Support</CardTitle>
-          <p className="text-muted-foreground">Log a ticket (demo) — stored on this device only.</p>
-        </CardHeader>
+    <div className="p-4 min-h-screen bg-background text-foreground grid gap-8 max-w-xl mx-auto">
+      <h1 className="text-4xl font-extrabold tracking-tight">Support</h1>
+      <p className="text-muted-foreground text-lg">Log a ticket (demo) — stored on this device only.</p>
 
-        <CardContent>
-          <div className="mb-4 font-semibold">Select your issue</div>
-          <select
-            className="w-full rounded-md border border-border bg-background text-foreground p-2"
-            value={issue}
-            onChange={(e) => setIssue(e.target.value)}
-          >
-            <option>Meter reading issue</option>
-            <option>Incorrect bill / invoice</option>
-            <option>Payment query</option>
-            <option>Water leak / burst pipe</option>
-            <option>Electricity outage</option>
-            <option>General query</option>
-          </select>
+      <Card>
+        <CardContent className="grid gap-4">
+          <div>
+            <label htmlFor="issue-select" className="block mb-2 font-semibold">
+              Select your issue
+            </label>
+            <select
+              id="issue-select"
+              className="w-full rounded-md border border-border bg-background text-foreground p-2"
+              value={issue}
+              onChange={(e) => setIssue(e.target.value)}
+            >
+              <option>Meter reading issue</option>
+              <option>Incorrect bill / invoice</option>
+              <option>Payment query</option>
+              <option>Water leak / burst pipe</option>
+              <option>Electricity outage</option>
+              <option>General query</option>
+            </select>
+          </div>
 
-          <div className="mt-6 mb-4 font-semibold">Short description</div>
-          <textarea
-            className="w-full rounded-md border border-border bg-background text-foreground p-2 resize-y min-h-[80px]"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            placeholder="Type a short description…"
-          />
-
-          {error ? (
-            <div className="mt-3 p-2 font-semibold text-destructive">{error}</div>
-          ) : null}
+          <div>
+            <label htmlFor="desc-textarea" className="block mt-4 mb-2 font-semibold">
+              Short description
+            </label>
+            <textarea
+              id="desc-textarea"
+              className="w-full rounded-md border border-border bg-background text-foreground p-2 resize-y min-h-[80px]"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              placeholder="Type a short description…"
+            />
+            {error ? (
+              <div className="mt-3 p-2 font-semibold text-destructive">{error}</div>
+            ) : null}
+          </div>
         </CardContent>
 
         <CardFooter className="flex gap-4">
@@ -111,7 +118,7 @@ export default function Support() {
         </CardFooter>
       </Card>
 
-      <div className="mt-8 max-w-xl mx-auto">
+      <div>
         <h2 className="text-lg font-extrabold mb-3">Logged tickets</h2>
 
         {sorted.length === 0 ? (
@@ -129,6 +136,12 @@ export default function Support() {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="flex gap-3 justify-center">
+        <Button variant="outline" asChild className="flex-grow sm:flex-grow-0">
+          <Link to="/home">← Return to Overview</Link>
+        </Button>
       </div>
     </div>
   );

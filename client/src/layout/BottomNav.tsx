@@ -4,11 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 type Item = { to: string; label: string; icon: string };
 
 const items: Item[] = [
-  { to: "/", label: "Home", icon: "🏠" },
-  { to: "/dashboard", label: "Dashboard", icon: "📊" },
+  { to: "/home", label: "Home", icon: "🏠" },
   { to: "/usage", label: "Usage", icon: "⚡" },
   { to: "/bills", label: "Bills", icon: "🧾" },
   { to: "/meters", label: "Meters", icon: "🔧" },
+  { to: "/support", label: "Support", icon: "🛠️" },
 ];
 
 export default function BottomNav() {

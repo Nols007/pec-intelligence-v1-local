@@ -8,11 +8,11 @@ export default function Bills() {
   const { view } = usePecView();
 
   return (
-    <div className="grid gap-4 p-4">
-      <h1 className="text-4xl font-extrabold leading-tight text-foreground">
-        Bills ({view === "residential" ? "Residential" : "Portfolio"})
+    <div className="p-4 min-h-screen grid gap-6">
+      <h1 className="text-4xl font-extrabold tracking-tight text-foreground">
+        Bills ({view === "residential" ? "Residential" : view === "portfolio" ? "Portfolio" : "PEC Internal"})
       </h1>
-      <p className="text-muted-foreground">Demo placeholder</p>
+      <p className="text-muted-foreground text-lg">Demo placeholder</p>
 
       <Card className="bg-background border-border">
         <CardHeader>
@@ -24,12 +24,9 @@ export default function Bills() {
         </CardContent>
       </Card>
 
-      <div className="flex flex-wrap gap-2">
-        <Button asChild variant="outline" className="whitespace-nowrap">
-          <Link to="/dashboard">← Back to Dashboard</Link>
-        </Button>
-        <Button asChild variant="outline" className="whitespace-nowrap">
-          <Link to="/">← Home</Link>
+      <div className="mt-auto flex flex-wrap gap-3">
+        <Button asChild variant="outline" className="flex-grow sm:flex-grow-0">
+          <Link to="/home">← Return to Overview</Link>
         </Button>
       </div>
     </div>

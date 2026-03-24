@@ -8,25 +8,22 @@ export default function Meters() {
   const { view } = usePecView();
 
   return (
-    <div className="grid gap-4">
-      <h1 className="text-[2.875rem] font-extrabold leading-none">
-        Meters ({view === "residential" ? "Residential" : "Portfolio"})
+    <div className="p-4 min-h-screen grid gap-6">
+      <h1 className="text-4xl font-extrabold tracking-tight text-foreground">
+        Meters ({view === "residential" ? "Residential" : view === "portfolio" ? "Portfolio" : "PEC Internal"})
       </h1>
-      <p className="opacity-75">Demo placeholder</p>
+      <p className="text-muted-foreground text-lg">Demo placeholder</p>
 
       <Card className="bg-background border-border">
-        <CardContent className="grid gap-3 p-4">
+        <CardContent className="grid gap-4 p-4">
           <MeterRow name="Electricity Meter" meta="Prepaid • demo" value="Last read: 12,430 kWh" />
           <MeterRow name="Water Meter" meta="Municipal • demo" value="Last read: 884 kL" />
         </CardContent>
       </Card>
 
-      <div className="flex flex-wrap gap-2">
-        <Button variant="outline" asChild>
-          <Link to="/dashboard">← Back to Dashboard</Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link to="/">← Home</Link>
+      <div className="mt-auto flex flex-wrap gap-3">
+        <Button variant="outline" asChild className="flex-grow sm:flex-grow-0">
+          <Link to="/home">← Return to Overview</Link>
         </Button>
       </div>
     </div>
@@ -57,5 +54,5 @@ const linkStyle: React.CSSProperties = {
   background: "rgba(255,255,255,0.06)",
   color: "white",
   textDecoration: "none",
-  fontWeight: 900,
+  fontWeight: "900",
 };

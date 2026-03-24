@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { usePecView } from "../state/pecView";
 
 type ViewMode = "residential" | "portfolio" | "pecInternal";
 
@@ -220,12 +222,12 @@ const internalScopes: Record<"watchdog" | "regional" | "critical", ScopeData> = 
 };
 
 export default function Home() {
+  const { view, setView } = usePecView();
   const navigate = useNavigate();
-  const [viewMode, setViewMode] = useState<ViewMode>("portfolio");
   const [scope, setScope] = useState<ScopeKey>("menlyn");
 
   const currentOptions = useMemo(() => {
-    if (viewMode === "residential") {
+    if (view === "residential") {
       return [
         { value: "homeMain", label: "My Home" },
         { value: "unit12", label: "Unit 12" },
@@ -233,7 +235,7 @@ export default function Home() {
       ] as const;
     }
 
-    if (viewMode === "portfolio") {
+    if (view === "portfolio") {
       return [
         { value: "menlyn", label: "Menlyn Shopping Centre" },
         { value: "waterfall", label: "Waterfall Estate" },
@@ -246,7 +248,13 @@ export default function Home() {
       { value: "regional", label: "Regional Branch View" },
       { value: "critical", label: "Critical Alerts" },
     ] as const;
-  }, [viewMode]);
+  }, [view]);
+
+  useEffect(() => {
+    if (view === "residential") setScope("homeMain");
+    else if (view === "portfolio") setScope("menlyn");
+    else if (view === "pecInternal") setScope("watchdog");
+  }, [view]);
 
   const safeScope = useMemo<ScopeKey>(() => {
     const allowed = currentOptions.map((option) => option.value);
@@ -254,22 +262,14 @@ export default function Home() {
   }, [scope, currentOptions]);
 
   const data = useMemo<ScopeData>(() => {
-    if (viewMode === "residential") {
+    if (view === "residential") {
       return residentialScopes[safeScope as keyof typeof residentialScopes];
     }
-    if (viewMode === "portfolio") {
+    if (view === "portfolio") {
       return portfolioScopes[safeScope as keyof typeof portfolioScopes];
     }
     return internalScopes[safeScope as keyof typeof internalScopes];
-  }, [viewMode, safeScope]);
-
-  const handleModeChange = (value: ViewMode) => {
-    setViewMode(value);
-
-    if (value === "residential") setScope("homeMain");
-    if (value === "portfolio") setScope("menlyn");
-    if (value === "pecInternal") setScope("watchdog");
-  };
+  }, [view, safeScope]);
 
   return (
     <div
@@ -283,24 +283,37 @@ export default function Home() {
     >
       <div style={{ marginBottom: "24px" }}>
         <h1 style={{ fontSize: "32px", margin: "0 0 6px 0" }}>PEC Intelligence</h1>
-        <div style={{ opacity: 0.6 }}>Utility Performance Dashboard</div>
+        <div style={{ opacity: 0.6 }}>Smart Utility Intelligence for residential, portfolio, and operational decision-making. </div>
       </div>
 
       {/* View Mode */}
       <div style={{ marginBottom: "18px" }}>
         <div style={{ ...sectionLabel, marginBottom: "10px" }}>View Mode</div>
         <div style={selectorWrap}>
-          <div style={selectorChevron}>▼</div>
-          <select
-            value={viewMode}
-            onChange={(e) => handleModeChange(e.target.value as ViewMode)}
-            style={selectorStyle}
-          >
-            <option value="residential">Residential</option>
-            <option value="portfolio">Portfolio</option>
-            <option value="pecInternal">PEC Internal</option>
-          </select>
-        </div>
+  <div style={selectorChevron}>▾</div>
+
+  <select
+    value={view}
+    onChange={(e) => setView(e.target.value as ViewMode)}
+    style={selectorStyle}
+  >
+    <option value="residential">Residential</option>
+    <option value="portfolio">Portfolio</option>
+    <option value="pecInternal">PEC Internal</option>
+  </select>
+</div>
+
+<p
+  style={{
+    marginTop: "8px",
+    fontSize: "12px",
+    fontWeight: 600,
+    color: "#f87171",
+    lineHeight: 1.4,
+  }}
+>
+  Residential = single property view · Portfolio = multi-site client view · PEC Internal = operational intelligence view
+</p>
       </div>
 
       {/* Scope */}
@@ -341,6 +354,9 @@ export default function Home() {
                   : alert.severity === "medium"
                   ? "Medium priority"
                   : "Monitoring"}
+                  <p className="text-sm font-medium text-emerald-400">
+  Potential efficiency opportunity identified across current utility activity.
+</p>
               </div>
             </div>
           ))}
@@ -394,7 +410,7 @@ export default function Home() {
           }}
         >
           <button style={actionButton} onClick={() => navigate("/usage")}>
-            View Usage
+            View Insights
           </button>
 
           <button style={actionButton} onClick={() => navigate("/bills")}>
@@ -406,7 +422,7 @@ export default function Home() {
           </button>
 
           <button style={actionButton} onClick={() => navigate("/support")}>
-            Support
+            Service
           </button>
         </div>
       </div>
