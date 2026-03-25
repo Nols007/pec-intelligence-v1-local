@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import pecLogo from "../assets/pec-logo.png";
 import { usePecView } from "../state/pecView";
 
 type ViewMode = "residential" | "portfolio" | "pecInternal";
@@ -277,199 +277,246 @@ export default function Home() {
   }, [view, safeScope]);
 
   return (
-    <div
+    <main
       style={{
         minHeight: "100vh",
         background: "linear-gradient(180deg,#050607,#0b0d10)",
         color: "#fff",
-        padding: "24px 24px 140px 24px",
         fontFamily: "system-ui, -apple-system, sans-serif",
       }}
     >
-      <div style={{ marginBottom: "24px" }}>
-        <h1 style={{ fontSize: "32px", margin: "0 0 6px 0" }}>PEC Intelligence</h1>
-        <div style={{ opacity: 0.6 }}>Smart Utility Intelligence for residential, portfolio, and operational decision-making. </div>
-      </div>
-
-      {/* View Mode */}
-      <div style={{ marginBottom: "18px" }}>
-        <div style={{ ...sectionLabel, marginBottom: "10px" }}>View Mode</div>
-        <div style={selectorWrap}>
-  <div style={selectorChevron}>▾</div>
-
-  <select
-    value={view}
-    onChange={(e) => setView(e.target.value as ViewMode)}
-    style={selectorStyle}
-  >
-    <option value="residential">Residential</option>
-    <option value="portfolio">Portfolio</option>
-    <option value="pecInternal">PEC Internal</option>
-  </select>
-</div>
-
-<div
-  style={{
-    marginTop: "10px",
-    fontSize: "14px",
-    fontWeight: 600,
-    color: "#f87171",
-  }}
->
-  {viewHelperText[view]}
-</div>
-      </div>
-
-      {/* Scope */}
-      <div style={{ marginBottom: "24px" }}>
-        <div style={{ ...sectionLabel, marginBottom: "10px" }}>Scope</div>
-        <div style={selectorWrap}>
-          <div style={selectorChevron}>▼</div>
-          <select
-            value={safeScope}
-            onChange={(e) => setScope(e.target.value as ScopeKey)}
-            style={selectorStyle}
-          >
-            {currentOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-       <div
-  style={{
-    marginTop: "10px",
-    fontSize: "14px",
-    fontWeight: 600,
-    color: "#f87171",
-  }}
->
-  {data.subtitle}
-</div>
-      </div>
-
-      {/* Alerts */}
-      <div style={{ marginBottom: "28px" }}>
-        <div style={{ ...sectionLabel, marginBottom: "12px" }}>Active Alerts</div>
-        <div style={{ display: "grid", gap: "12px" }}>
-          {data.alerts.map((alert, index) => (
-            <div key={index} style={alertCard(alert.severity)}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div style={alertDot(alert.severity)} />
-                <div style={{ fontWeight: 700 }}>{alert.title}</div>
-              </div>
-              <div style={alertSeverity(alert.severity)}>
-                {alert.severity === "high"
-                  ? "High priority"
-                  : alert.severity === "medium"
-                  ? "Medium priority"
-                  : "Monitoring"}
-                  <p className="text-sm font-medium text-emerald-400">
-  Potential efficiency opportunity identified across current utility activity.
-</p>
-              </div>
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "0 auto",
+          padding: "24px",
+          textAlign: "left",
+        }}
+      >
+        <div className="mb-10">
+          <div className="flex items-center gap-4">
+            <img
+              src={pecLogo}
+              alt="PEC"
+              className="h-14 w-auto object-contain opacity-95"
+            />
+            <div>
+              <h1 className="m-0 text-5xl font-extrabold tracking-wide text-white leading-tight">
+                PEC Intelligence
+              </h1>
+              <p className="mt-2 text-base font-semibold uppercase tracking-widest text-green-400">
+                Operational Utility Intelligence
+              </p>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Utility Cards */}
-      <div style={{ display: "grid", gap: "16px", gridTemplateColumns: "1fr" }}>
-        <div style={cardStyle}>
-          <div style={labelStyle}>Electricity</div>
-          <div style={valueStyle}>{data.electricity}</div>
-          <div style={data.electricityUp ? trendUp : trendDown}>
-            {data.electricityTrend}
           </div>
         </div>
 
-        <div style={cardStyle}>
-          <div style={labelStyle}>Water</div>
-          <div style={valueStyle}>{data.water}</div>
-          <div style={data.waterUp ? trendUp : trendDown}>{data.waterTrend}</div>
+        {/* View Mode */}
+        <div style={{ marginBottom: "24px" }}>
+          <div style={{ ...sectionLabel, marginBottom: "6px" }}>View Mode</div>
+          <div style={selectorWrap}>
+            <div style={selectorChevron}>▾</div>
+
+            <select
+              value={view}
+              onChange={(e) => setView(e.target.value as ViewMode)}
+              style={selectorStyle}
+            >
+              <option value="residential">Residential</option>
+              <option value="portfolio">Portfolio</option>
+              <option value="pecInternal">PEC Internal</option>
+            </select>
+          </div>
+
+          <div
+            style={{
+              marginTop: "10px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#f87171",
+            }}
+          >
+            {viewHelperText[view]}
+          </div>
         </div>
 
-        <div style={cardStyle}>
-          <div style={labelStyle}>Gas</div>
-          <div style={valueStyle}>{data.gas}</div>
-          <div style={data.gasUp ? trendUp : trendDown}>{data.gasTrend}</div>
+        {/* Scope */}
+        <div style={{ marginBottom: "24px" }}>
+          <div style={{ ...sectionLabel, marginBottom: "6px" }}>Scope</div>
+          <div style={selectorWrap}>
+            <div style={selectorChevron}>▼</div>
+            <select
+              value={safeScope}
+              onChange={(e) => setScope(e.target.value as ScopeKey)}
+              style={selectorStyle}
+            >
+              {currentOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div
+            style={{
+              marginTop: "10px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#f87171",
+            }}
+          >
+            {data.subtitle}
+          </div>
         </div>
-      </div>
 
-      {/* AI Insight */}
-      <div
-        style={{
-          marginTop: "32px",
-          padding: "20px",
-          borderRadius: "16px",
-          background: "rgba(255,255,255,0.05)",
-        }}
-      >
-        <div style={{ fontWeight: 700, marginBottom: "8px" }}>AI Insight</div>
-        <div style={{ opacity: 0.72, lineHeight: 1.5 }}>{data.insight}</div>
-      </div>
+        {/* Alerts */}
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ ...sectionLabel, marginBottom: "12px" }}>Active Alerts</div>
+          <div className="grid gap-3">
+            {/* 💰 VALUE / IMPACT CARD */}
+            <div
+              style={{
+                padding: "14px",
+                borderRadius: "12px",
+                border: "1px solid rgba(16,185,129,0.2)",
+                background: "rgba(16,185,129,0.08)",
+                width: "100%",
+              }}
+            >
+              <div style={{ fontWeight: 700, color: "#34d399" }}>
+                💰 Efficiency opportunity identified
+              </div>
 
-      {/* Quick Actions */}
-      <div style={{ marginTop: "32px" }}>
-        <div style={{ fontWeight: 700, marginBottom: "12px" }}>Quick Actions</div>
+              <div
+                style={{
+                  fontSize: "18px",
+                  fontWeight: 800,
+                  marginTop: "4px",
+                  color: "#6ee7b7",
+                }}
+              >
+                {view === "residential" && "R 18,200 potential saving"}
+                {view === "portfolio" && "R 842,500 opportunity identified"}
+                {view === "pecInternal" && "R 1,240,000+ optimisation exposure"}
+              </div>
+
+              <div
+                style={{ fontSize: "13px", opacity: 0.7, marginTop: "4px" }}
+              >
+                Based on current consumption behaviour and detected patterns
+              </div>
+            </div>
+            {data.alerts.map((alert, index) => (
+              <div key={index} style={alertCard(alert.severity)}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <div style={alertDot(alert.severity)} />
+                  <div style={{ fontWeight: 700 }}>{alert.title}</div>
+                </div>
+                <div style={alertSeverity(alert.severity)}>
+                  {alert.severity === "high"
+                    ? "High priority"
+                    : alert.severity === "medium"
+                    ? "Medium priority"
+                    : "Monitoring"}
+                  <p className="text-sm font-medium text-emerald-400">
+                    Potential efficiency opportunity identified across current
+                    utility activity.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Utility Cards */}
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+          <div style={{ ...cardStyle, width: "100%" }}>
+            <div style={labelStyle}>Electricity</div>
+            <div style={valueStyle}>{data.electricity}</div>
+            <div style={data.electricityUp ? trendUp : trendDown}>
+              {data.electricityTrend}
+            </div>
+          </div>
+
+          <div style={{ ...cardStyle, width: "100%" }}>
+            <div style={labelStyle}>Water</div>
+            <div style={valueStyle}>{data.water}</div>
+            <div style={data.waterUp ? trendUp : trendDown}>{data.waterTrend}</div>
+          </div>
+
+          <div style={{ ...cardStyle, width: "100%" }}>
+            <div style={labelStyle}>Gas</div>
+            <div style={valueStyle}>{data.gas}</div>
+            <div style={data.gasUp ? trendUp : trendDown}>{data.gasTrend}</div>
+          </div>
+        </div>
+
+        {/* AI Insight */}
+        <div
+          className="mt-8 p-6 rounded-xl bg-white/5"
+          style={{ marginTop: "28px" }}
+        >
+          <div className="font-bold mb-2">Intelligence Insight</div>
+          <p className="opacity-70 leading-relaxed">{data.insight}</p>
+        </div>
+
+        {/* Quick Actions */}
+        <div style={{ marginTop: "28px" }}>
+          <div className="font-bold mb-4">Quick Actions</div>
+          <div className="grid grid-cols-2 gap-3">
+            <button style={actionButton} onClick={() => navigate("/usage")}>
+              View Insights
+            </button>
+
+            <button style={actionButton} onClick={() => navigate("/bills")}>
+              View Bills
+            </button>
+
+            <button style={actionButton} onClick={() => navigate("/meters")}>
+              Meters
+            </button>
+
+            <button style={actionButton} onClick={() => navigate("/support")}>
+              Service
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Nav */}
         <div
           style={{
+            position: "fixed",
+            left: 16,
+            right: 16,
+            bottom: "max(16px, env(safe-area-inset-bottom))",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "12px",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "10px",
+            padding: "10px",
+            borderRadius: "18px",
+            background: "rgba(18,18,20,0.92)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
           }}
         >
-          <button style={actionButton} onClick={() => navigate("/usage")}>
-            View Insights
+          <button style={navButtonActive} onClick={() => navigate("/home")}>
+            Home
           </button>
-
-          <button style={actionButton} onClick={() => navigate("/bills")}>
-            View Bills
+          <button style={navButton} onClick={() => navigate("/usage")}>
+            Usage
           </button>
-
-          <button style={actionButton} onClick={() => navigate("/meters")}>
-            Meters
+          <button style={navButton} onClick={() => navigate("/bills")}>
+            Bills
           </button>
-
-          <button style={actionButton} onClick={() => navigate("/support")}>
-            Service
+          <button style={navButton} onClick={() => navigate("/support")}>
+            Support
           </button>
         </div>
       </div>
-
-      {/* Bottom Nav */}
-      <div
-        style={{
-          position: "fixed",
-          left: 16,
-          right: 16,
-          bottom: "max(16px, env(safe-area-inset-bottom))",
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "10px",
-          padding: "10px",
-          borderRadius: "18px",
-          background: "rgba(18,18,20,0.92)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-        }}
-      >
-        <button style={navButtonActive} onClick={() => navigate("/home")}>
-          Home
-        </button>
-        <button style={navButton} onClick={() => navigate("/usage")}>
-          Usage
-        </button>
-        <button style={navButton} onClick={() => navigate("/bills")}>
-          Bills
-        </button>
-        <button style={navButton} onClick={() => navigate("/support")}>
-          Support
-        </button>
-      </div>
-    </div>
+    </main>
   );
 }
 

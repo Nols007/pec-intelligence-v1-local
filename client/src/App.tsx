@@ -11,25 +11,25 @@ import NotFound from "./pages/not-found";
 import Advisory from "./pages/advisory";
 import StyleGuide from "./pages/style-guide";
 import Insights from "./pages/insights";
+import BottomNav from "./layout/BottomNav";
 
 export default function App() {
   return (
-    <Routes>
-      {/* Intro / Splash */}
-      <Route path="/" element={<Intro />} />
-      
-
+    <div className="min-h-screen bg-background text-foreground pb-24">
+      <Routes>
+        {/* Intro / Splash */}
+        <Route path="/" element={<Intro />} />
+        
       {/* Main app */}
-      <Route path="/home" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/usage" element={<Usage />} />
       <Route path="/bills" element={<Bills />} />
-      <Route path="/meters" element={<Meters />} />
       <Route path="/support" element={<Support />} />
+      <Route path="/meters" element={<Meters />} />
       <Route path="/advisory" element={<Advisory />} />
       <Route path="/insights" element={<Insights />} />
       
-
       {/* Optional: if anything links to /payment in BottomNav */}
       <Route path="/payment" element={<Navigate to="/bills" replace />} />
 
@@ -39,5 +39,8 @@ export default function App() {
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
     </Routes>
+
+          <BottomNav />
+    </div>
   );
 }

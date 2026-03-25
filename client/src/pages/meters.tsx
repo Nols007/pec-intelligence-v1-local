@@ -3,30 +3,44 @@ import { Link } from "react-router-dom";
 import { usePecView } from "../state/pecView";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export default function Meters() {
   const { view } = usePecView();
+  const navigate = useNavigate();
 
   return (
-    <div className="p-4 min-h-screen grid gap-6">
-      <h1 className="text-4xl font-extrabold tracking-tight text-foreground">
-        Meters ({view === "residential" ? "Residential" : view === "portfolio" ? "Portfolio" : "PEC Internal"})
-      </h1>
-      <p className="text-muted-foreground text-lg">Demo placeholder</p>
+    <main style={{ minHeight: "100vh", fontFamily: "sans-serif", color: "var(--foreground)", background: "var(--background)" }}>
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "0 auto",
+          padding: "24px",
+          textAlign: "left",
+        }}
+        className="pb-24"
+      >
+        <h1 className="text-4xl font-extrabold tracking-tight text-foreground" style={{ marginBottom: "24px" }}>
+          Meters ({view === "residential" ? "Residential" : view === "portfolio" ? "Portfolio" : "PEC Internal"})
+        </h1>
+        <p className="text-muted-foreground text-lg" style={{ marginBottom: "24px" }}>
+          Demo placeholder
+        </p>
 
-      <Card className="bg-background border-border">
-        <CardContent className="grid gap-4 p-4">
-          <MeterRow name="Electricity Meter" meta="Prepaid • demo" value="Last read: 12,430 kWh" />
-          <MeterRow name="Water Meter" meta="Municipal • demo" value="Last read: 884 kL" />
-        </CardContent>
-      </Card>
+        <Card className="bg-background border-border" style={{ width: "100%" }}>
+          <CardContent className="grid gap-4 p-4">
+            <MeterRow name="Electricity Meter" meta="Prepaid • demo" value="Last read: 12,430 kWh" />
+            <MeterRow name="Water Meter" meta="Municipal • demo" value="Last read: 884 kL" />
+          </CardContent>
+        </Card>
 
-      <div className="mt-auto flex flex-wrap gap-3">
-        <Button variant="outline" asChild className="flex-grow sm:flex-grow-0">
-          <Link to="/home">← Return to Overview</Link>
-        </Button>
+        <div className="mt-auto flex flex-wrap gap-3" style={{ marginTop: "24px" }}>
+          <Button asChild variant="outline" className="flex-grow sm:flex-grow-0">
+            <Button onClick={() => navigate("/home")}>← Return to Overview</Button>
+          </Button>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 
