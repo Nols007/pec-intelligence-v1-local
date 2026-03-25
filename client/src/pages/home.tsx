@@ -220,6 +220,11 @@ const internalScopes: Record<"watchdog" | "regional" | "critical", ScopeData> = 
     ],
   },
 };
+const viewHelperText: Record<ViewMode, string> = {
+  residential: "Residential = single property view",
+  portfolio: "Portfolio = multi-site client view",
+  pecInternal: "PEC Internal = operational intelligence view",
+};
 
 export default function Home() {
   const { view, setView } = usePecView();
@@ -303,17 +308,16 @@ export default function Home() {
   </select>
 </div>
 
-<p
+<div
   style={{
-    marginTop: "8px",
-    fontSize: "12px",
+    marginTop: "10px",
+    fontSize: "14px",
     fontWeight: 600,
     color: "#f87171",
-    lineHeight: 1.4,
   }}
 >
-  Residential = single property view · Portfolio = multi-site client view · PEC Internal = operational intelligence view
-</p>
+  {viewHelperText[view]}
+</div>
       </div>
 
       {/* Scope */}
@@ -333,9 +337,16 @@ export default function Home() {
             ))}
           </select>
         </div>
-        <div style={{ marginTop: "10px", opacity: 0.65, fontSize: "14px" }}>
-          {data.subtitle}
-        </div>
+       <div
+  style={{
+    marginTop: "10px",
+    fontSize: "14px",
+    fontWeight: 600,
+    color: "#f87171",
+  }}
+>
+  {data.subtitle}
+</div>
       </div>
 
       {/* Alerts */}
