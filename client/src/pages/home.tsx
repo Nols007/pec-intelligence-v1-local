@@ -286,6 +286,7 @@ export default function Home() {
       }}
     >
       <div
+        className="px-6 sm:px-6 md:px-8"
         style={{
           maxWidth: "900px",
           margin: "0 auto",
@@ -294,17 +295,17 @@ export default function Home() {
         }}
       >
         <div className="mb-10">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
             <img
               src={pecLogo}
               alt="PEC"
-              className="h-14 w-auto object-contain opacity-95"
+              className="h-10 sm:h-14 w-auto object-contain opacity-95"
             />
             <div>
-              <h1 className="m-0 text-5xl font-extrabold tracking-wide text-white leading-tight">
+              <h1 className="m-0 text-3xl sm:text-5xl font-extrabold tracking-wide text-white leading-tight">
                 PEC Intelligence
               </h1>
-              <p className="mt-2 text-base font-semibold uppercase tracking-widest text-green-400">
+              <p className="mt-1 sm:mt-2 text-sm sm:text-base font-semibold uppercase tracking-widest text-green-400">
                 Operational Utility Intelligence
               </p>
             </div>
@@ -431,7 +432,7 @@ export default function Home() {
         </div>
 
         {/* Utility Cards */}
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div style={{ ...cardStyle, width: "100%" }}>
             <div style={labelStyle}>Electricity</div>
             <div style={valueStyle}>{data.electricity}</div>
@@ -463,7 +464,7 @@ export default function Home() {
         </div>
 
         {/* Quick Actions */}
-        <div style={{ marginTop: "28px" }}>
+        <div className="mt-7">
           <div className="font-bold mb-4">Quick Actions</div>
           <div className="grid grid-cols-2 gap-3">
             <button style={actionButton} onClick={() => navigate("/usage")}>
@@ -486,32 +487,18 @@ export default function Home() {
 
         {/* Bottom Nav */}
         <div
-          style={{
-            position: "fixed",
-            left: 16,
-            right: 16,
-            bottom: "max(16px, env(safe-area-inset-bottom))",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "10px",
-            padding: "10px",
-            borderRadius: "18px",
-            background: "rgba(18,18,20,0.92)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-          }}
+          className="fixed left-4 right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] grid grid-cols-4 gap-2 p-2 rounded-[1.125rem] bg-[rgba(18,18,20,0.92)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.08)] shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
         >
-          <button style={navButtonActive} onClick={() => navigate("/home")}>
+          <button className={navButtonActive} onClick={() => navigate("/home")}>
             Home
           </button>
-          <button style={navButton} onClick={() => navigate("/usage")}>
+          <button className={navButton} onClick={() => navigate("/usage")}>
             Usage
           </button>
-          <button style={navButton} onClick={() => navigate("/bills")}>
+          <button className={navButton} onClick={() => navigate("/bills")}>
             Bills
           </button>
-          <button style={navButton} onClick={() => navigate("/support")}>
+          <button className={navButton} onClick={() => navigate("/support")}>
             Support
           </button>
         </div>

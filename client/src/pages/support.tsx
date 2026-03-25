@@ -62,7 +62,7 @@ export default function Support() {
   return (
     <main style={{ minHeight: "100vh", fontFamily: "sans-serif", color: "var(--foreground)", background: "var(--background)" }}>
       <div
-        className="p-4 pb-24"
+        className="p-4 pb-[96px] sm:pb-[112px]"
         style={{
           maxWidth: "900px",
           margin: "0 auto",
@@ -70,8 +70,8 @@ export default function Support() {
           textAlign: "left",
         }}
       >
-        <h1 className="text-4xl font-extrabold tracking-tight" style={{ marginBottom: "24px" }}>Support</h1>
-        <p className="text-muted-foreground text-lg" style={{ marginBottom: "24px" }}>
+        <h1 className="text-4xl font-extrabold tracking-tight mb-6" >Support</h1>
+        <p className="text-muted-foreground text-lg mb-6">
           Log a ticket (demo) — stored on this device only.
         </p>
 
@@ -113,8 +113,8 @@ export default function Support() {
             </div>
           </CardContent>
 
-          <CardFooter className="flex gap-4">
-            <Button variant="destructive" onClick={submit}>
+          <CardFooter className="flex flex-col sm:flex-row gap-4">
+            <Button variant="destructive" onClick={submit} className="w-full sm:w-auto">
               Submit ticket
             </Button>
             <Button
@@ -125,6 +125,7 @@ export default function Support() {
                 setTickets([]);
                 saveTickets([]);
               }}
+              className="w-full sm:w-auto"
             >
               Clear demo tickets
             </Button>
@@ -140,7 +141,7 @@ export default function Support() {
             <div className="grid gap-4">
               {sorted.map((t) => (
                 <Card key={t.id} className="p-4">
-                  <div className="flex justify-between items-baseline gap-3">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-3">
                     <div className="font-extrabold text-lg">{t.issue}</div>
                     <div className="text-muted-foreground font-bold">{t.createdAt}</div>
                   </div>
