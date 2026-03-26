@@ -464,7 +464,7 @@ export default function Home() {
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-7">
+        <div style={{ marginTop: "28px" }}>
           <div className="font-bold mb-4">Quick Actions</div>
           <div className="grid grid-cols-2 gap-3">
             <button style={actionButton} onClick={() => navigate("/usage")}>
@@ -487,18 +487,32 @@ export default function Home() {
 
         {/* Bottom Nav */}
         <div
-          className="fixed left-4 right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] grid grid-cols-4 gap-2 p-2 rounded-[1.125rem] bg-[rgba(18,18,20,0.92)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.08)] shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+          style={{
+            position: "fixed",
+            left: 16,
+            right: 16,
+            bottom: "max(16px, env(safe-area-inset-bottom))",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "10px",
+            padding: "10px",
+            borderRadius: "18px",
+            background: "rgba(18,18,20,0.92)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+          }}
         >
-          <button className={navButtonActive} onClick={() => navigate("/home")}>
+          <button style={navButtonActive} onClick={() => navigate("/home")}>
             Home
           </button>
-          <button className={navButton} onClick={() => navigate("/usage")}>
+          <button style={navButton} onClick={() => navigate("/usage")}>
             Usage
           </button>
-          <button className={navButton} onClick={() => navigate("/bills")}>
+          <button style={navButton} onClick={() => navigate("/bills")}>
             Bills
           </button>
-          <button className={navButton} onClick={() => navigate("/support")}>
+          <button style={navButton} onClick={() => navigate("/support")}>
             Support
           </button>
         </div>
