@@ -48,17 +48,17 @@ function getUsageContent(view: "residential" | "portfolio" | "pecInternal"): Usa
     };
   }
 
-  return {
+    return {
     title: "Usage - Residential View",
     electricityTrend: "+4.2% month-on-month",
     electricityPositive: true,
     waterTrend: "-1.8% month-on-month",
     waterPositive: false,
-    projectedCost: "R 195,000",
-    projectedLabel: "Estimated electricity spend next billing cycle",
+    projectedCost: "R 4,280",
+    projectedLabel: "Estimated utility spend next billing cycle",
     insightTitle: "Weekend electricity consumption spikes detected",
     insightBody:
-      "Weekend electricity consumption spikes detected. Investigate HVAC scheduling or tenant after-hours usage patterns.",
+      "Weekend electricity consumption spikes were detected. Usage patterns suggest an opportunity to optimise geyser timing, pool pump cycles, and other high-load household equipment.",
   };
 }
 
@@ -153,7 +153,7 @@ export default function Usage() {
         </div>
 
         <div className="mt-1 text-xl font-bold text-emerald-300">
-          {view === "residential" && "R 18,200"}
+          {view === "residential" && "R 620"}
           {view === "portfolio" && "R 842,500"}
           {view === "pecInternal" && "R 1,240,000+"}
         </div>

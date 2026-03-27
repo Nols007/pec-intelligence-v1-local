@@ -36,17 +36,17 @@ const residentialScopes: Record<"homeMain" | "unit12" | "unit23", ScopeData> = {
   homeMain: {
     title: "My Home",
     subtitle: "Residential Account · Main View",
-    electricity: "388 kWh",
-    electricityTrend: "▲ 6% vs last month",
+    electricity: "742 kWh",
+    electricityTrend: "▲ 8% vs last month",
     electricityUp: true,
-    water: "12.4 kL",
-    waterTrend: "▼ 3% vs last month",
+    water: "21.6 kL",
+    waterTrend: "▼ 2% vs last month",
     waterUp: false,
     gas: "—",
     gasTrend: "No gas connection",
     gasUp: true,
     insight:
-      "Electricity usage is slightly elevated compared to last month. Review evening peak usage and appliance scheduling.",
+      "Electricity usage is slightly elevated compared to last month. Review geyser timing, pool pump cycles, and other high-load household usage during peak periods.",
     alerts: [
       { title: "Possible abnormal evening consumption detected", severity: "medium" },
       { title: "Water usage remains stable", severity: "low" },
@@ -56,17 +56,17 @@ const residentialScopes: Record<"homeMain" | "unit12" | "unit23", ScopeData> = {
   unit12: {
     title: "Unit 12",
     subtitle: "Residential Unit · Estate View",
-    electricity: "421 kWh",
-    electricityTrend: "▲ 9% vs last month",
+    electricity: "818 kWh",
+    electricityTrend: "▲ 11% vs last month",
     electricityUp: true,
-    water: "10.8 kL",
+    water: "19.4 kL",
     waterTrend: "▼ 1% vs last month",
     waterUp: false,
     gas: "—",
     gasTrend: "No gas connection",
     gasUp: true,
     insight:
-      "Unit 12 shows a stronger electricity increase than expected. Compare occupancy pattern against previous billing period.",
+      "Unit 12 shows a stronger electricity increase than expected. Compare occupancy patterns, geyser timing, and other high-draw appliance usage against the previous billing period.",
     alerts: [
       { title: "Above-normal monthly electricity increase", severity: "high" },
       { title: "Water remains within expected household range", severity: "low" },
@@ -76,17 +76,17 @@ const residentialScopes: Record<"homeMain" | "unit12" | "unit23", ScopeData> = {
   unit23: {
     title: "Unit 23",
     subtitle: "Residential Unit · Estate View",
-    electricity: "356 kWh",
-    electricityTrend: "▼ 2% vs last month",
+    electricity: "689 kWh",
+    electricityTrend: "▼ 3% vs last month",
     electricityUp: false,
-    water: "15.2 kL",
-    waterTrend: "▲ 11% vs last month",
+    water: "27.8 kL",
+    waterTrend: "▲ 14% vs last month",
     waterUp: true,
     gas: "—",
     gasTrend: "No gas connection",
     gasUp: true,
     insight:
-      "Water usage has increased materially. Leak detection or irrigation timing should be reviewed.",
+      "Water usage has increased materially. Leak detection, irrigation timing, or abnormal weekend consumption should be reviewed.",
     alerts: [
       { title: "Possible water leak pattern detected", severity: "high" },
       { title: "Electricity trend improving", severity: "low" },
@@ -276,6 +276,90 @@ export default function Home() {
     return internalScopes[safeScope as keyof typeof internalScopes];
   }, [view, safeScope]);
 
+      const efficiencyCard = useMemo(() => {
+    switch (safeScope) {
+      case "homeMain":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 620 potential saving",
+          description:
+            "Opportunity to optimise geyser timing and reduce high-load household usage during peak periods.",
+        };
+
+      case "unit12":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 780 potential saving",
+          description:
+            "Higher electricity usage suggests an opportunity to optimise occupancy-related load and appliance timing.",
+        };
+
+      case "unit23":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 540 water optimisation opportunity",
+          description:
+            "Water variance suggests an opportunity to reduce abnormal weekend consumption and investigate possible leakage.",
+        };
+
+      case "menlyn":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 148,000 peak demand optimisation opportunity",
+          description:
+            "Peak demand and after-hours HVAC patterns indicate a meaningful opportunity to reduce electricity exposure.",
+        };
+
+      case "waterfall":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 96,000 water optimisation opportunity",
+          description:
+            "Estate-wide water variance suggests an opportunity to improve irrigation scheduling and leak response performance.",
+        };
+
+      case "sandton":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 38,000 gas and after-hours load opportunity",
+          description:
+            "Operational trends suggest a targeted opportunity to optimise gas usage and reduce after-hours demand exposure.",
+        };
+
+      case "watchdog":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 1,240,000+ optimisation exposure",
+          description:
+            "Automated anomaly reporting indicates substantial multi-site optimisation and intervention potential.",
+        };
+
+      case "regional":
+        return {
+          title: "Efficiency opportunity identified",
+          value: "R 860,000 regional optimisation exposure",
+          description:
+            "Branch-level performance visibility indicates multiple opportunities to improve follow-up, telemetry response, and site efficiency.",
+        };
+
+      case "critical":
+        return {
+          title: "Priority intervention required",
+          value: "Immediate operational response needed",
+          description:
+            "Critical utility events indicate immediate operational exposure requiring urgent response and escalation.",
+        };
+
+      default:
+        return {
+          title: "Efficiency opportunity identified",
+          value: "Opportunity identified",
+          description:
+            "Current utility patterns indicate an opportunity for improved operational efficiency.",
+        };
+    }
+  }, [safeScope]);
+
   return (
     <main
       style={{
@@ -384,8 +468,8 @@ export default function Home() {
                 width: "100%",
               }}
             >
-              <div style={{ fontWeight: 700, color: "#34d399" }}>
-                💰 Efficiency opportunity identified
+                      <div style={{ fontWeight: 700, color: "#34d399" }}>
+                💰 {efficiencyCard.title}
               </div>
 
               <div
@@ -396,15 +480,13 @@ export default function Home() {
                   color: "#6ee7b7",
                 }}
               >
-                {view === "residential" && "R 18,200 potential saving"}
-                {view === "portfolio" && "R 842,500 opportunity identified"}
-                {view === "pecInternal" && "R 1,240,000+ optimisation exposure"}
+                {efficiencyCard.value}
               </div>
 
               <div
                 style={{ fontSize: "13px", opacity: 0.7, marginTop: "4px" }}
               >
-                Based on current consumption behaviour and detected patterns
+                {efficiencyCard.description}
               </div>
             </div>
             {data.alerts.map((alert, index) => (
