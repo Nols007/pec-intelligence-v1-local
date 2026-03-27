@@ -2,13 +2,6 @@
 
 ## 0) Quick clarification: why your local branch differed from `origin/main`
 
-When I searched for `client/src/pages/style-guide.tsx` earlier I was on **`feature/local-changes`**, which was branched off an **older** `main` commit (`218d32f`).
-
-`origin/main` is now at `8871794` and **does contain** `client/src/pages/style-guide.tsx` plus related `components/style-guide/*`.
-
-So the difference wasn’t “local main vs remote main” — it was **feature branch vs updated main**. If you want `feature/local-changes` to include the style guide work, you’ll need to `git merge main` (or rebase) into your feature branch.
-
----
 
 ## 1) What the new Style Guide page tells us (key takeaways)
 
